@@ -10,3 +10,15 @@
 *.lai
 *.la
 *.a
+
+# building dirs and files
+MakeFile
+obj
+Sapling
+*.make
+
+#swap files
+*~
+
+# Horde3d Log
+Horde3D_Log.html
