@@ -43,67 +43,6 @@ int windowCloseListener()
 	return 0;
 }
 
-/*
-void oldkeyPressListener( int key, int action )
-{
-	if( !running ) return;
-
-	if( action == GLFW_PRESS )
-	{
-		int width = appWidth, height = appHeight;
-
-		switch (key)
-		{
-		case GLFW_KEY_ESC:
-			running = false;
-			break;
-		case GLFW_KEY_F1:
-			app->release();
-			glfwCloseWindow();
-
-			// Toggle fullscreen mode
-			fullScreen = !fullScreen;
-
-			if( fullScreen )
-			{
-				GLFWvidmode mode;
-				glfwGetDesktopMode( &mode );
-
-				float aspect = mode.Width / (float)mode.Height;
-				if( (int)(aspect * 100) == 133 || (int)(aspect * 100) == 125 )  // Standard
-				{
-					width = 1280; height = 1024;
-				}
-				else if( (int)(aspect * 100) == 177 )                           // Widescreen 16:9
-				{
-					width = 1280; height = 720;
-				}
-				else if( (int)(aspect * 100) == 160 )                           // Widescreen 16:10
-				{
-					width = 1280; height = 800;
-				}
-				else                                                            // Unknown
-				{
-					// Use desktop resolution
-					width = mode.Width; height = mode.Height;
-				}
-			}
-
-			if( !setupWindow( width, height, fullScreen ) )
-			{
-				glfwTerminate();
-				exit( -1 );
-			}
-
-			app->init();
-			app->resize( width, height );
-			t0 = glfwGetTime();
-			break;
-		}
-	}
-}
-*/
-
 bool setupWindow( int width, int height, bool fullscreen )
 {
 	if( !glfwOpenWindow( width, height, 8, 8, 8, 8, 24, 8, fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW ) )
