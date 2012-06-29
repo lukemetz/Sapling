@@ -106,22 +106,20 @@ void Application::engineInit() {
 	mc = new MeshComponent("models/knight/knight.scene.xml");
 	entitySystem->addComponent<MeshComponent>(e3,mc);
 
-	renderSystem = new RenderSystem(entitySystem);
-	inputSystem = new InputSystem(entitySystem);
-	inputMoverSystem = new InputMoverSystem(entitySystem);
-  inputHelperSystem = new InputHelperSystem(entitySystem);
-  wobbleSystem = new WobbleMoverSystem(entitySystem);
+
+  entitySystem->addSystem<RenderSystem>();
+  entitySystem->addSystem<InputSystem>();
+  entitySystem->addSystem<InputMoverSystem>();
+  entitySystem->addSystem<InputHelperSystem>();
+  entitySystem->addSystem<WobbleMoverSystem>();
 }
 
 void Application::mainLoop( float fps )
 {
 	_curFPS = fps;
   float dt = 1/fps;
-	inputSystem->run(dt);
-	inputMoverSystem->run(dt);
-	renderSystem->run(dt);
-  inputHelperSystem->run(dt);
-  wobbleSystem->run(dt);
+
+  entitySystem->update(dt);
 }
 
 void Application::release()

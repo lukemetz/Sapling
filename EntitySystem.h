@@ -25,10 +25,19 @@ struct Entity
    std::map<TypeNameKey, Component*> mComponents;
 };
 
+class System
+{
+public:
+  virtual void run(float dt)
+  {
+  };
+};
+
 class EntitySystem
 {
 public:
    EntitySystem();
+   ~EntitySystem();
 
    template<typename T> T *getComponent(Entity *e)
    {
@@ -69,20 +78,21 @@ public:
 
    void removeAllComponents(Entity *e);
 
+   template<typename T> T* addSystem()
+   {
+      T *system = new T(this);
+      systems.push_back(system);
+      return system;
+   }
+
+   void update(float dt);
+
 protected:
    std::multimap<TypeNameKey, Entity*> mComponentStore;
-
+   std::vector<System *> systems;
 };
 
 template<typename Type> Type *Entity::getAs()
 {
    return entitySystem->getComponent<Type>(this);
 }
-
-class System
-{
-public:
-  virtual void run(float dt)
-  {
-  };
-};

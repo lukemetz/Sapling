@@ -8,12 +8,6 @@
 #include "Components/userComponents.h"
 #include "EntitySystem.h"
 
-class InputHelperSystem;
-class RenderSystem;
-class InputSystem;
-class InputMoverSystem;
-class WobbleMoverSystem;
-
 class Application
 {
 public:
@@ -49,12 +43,6 @@ private:
 	H3DNode            _cam;
 
 	EntitySystem *entitySystem;
-	RenderSystem *renderSystem;
-	InputSystem *inputSystem;
-  InputHelperSystem *inputHelperSystem;
-	//User logic
-	InputMoverSystem *inputMoverSystem;
-  WobbleMoverSystem *wobbleSystem;
 
   static Application *instance;
 };
