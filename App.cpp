@@ -79,33 +79,30 @@ bool Application::init()
 void Application::engineInit() {
 	entitySystem = new EntitySystem();
 	Entity *e1 = new Entity;
-	TransformComponent *tc = new TransformComponent();
-	entitySystem->addComponent<TransformComponent>(e1,tc);
-	CameraComponent *cc = new CameraComponent();
-	entitySystem->addComponent<CameraComponent>(e1,cc);
-	InputComponent *ic = new InputComponent();
-	entitySystem->addComponent<InputComponent>(e1,ic);
-  LightComponent *lc = entitySystem->createComponent<LightComponent>(e1);
+	TransformComponent *tc;
+  CameraComponent *cc;
+  InputComponent *ic;
+  LightComponent *lc;
+  WobbleMoverComponent *wc;
+
+  tc = entitySystem->createComponent<TransformComponent>(e1);
+	cc = entitySystem->createComponent<CameraComponent>(e1);
+	ic = entitySystem->createComponent<InputComponent>(e1);
+  lc = entitySystem->createComponent<LightComponent>(e1);
   lc->color[1] = 0;
 
-	InputMoverComponent *icm = new InputMoverComponent();
-	entitySystem->addComponent<InputMoverComponent>(e1,icm);
-
+	entitySystem->createComponent<InputMoverComponent>(e1);
 
 	Entity *e2 = new Entity;
-	tc = new TransformComponent();
-	entitySystem->addComponent<TransformComponent>(e1,tc);
-	MeshComponent *mc = new MeshComponent("models/knight/knight.scene.xml");
-  entitySystem->addComponent<MeshComponent>(e1,mc);
-	tc->pos.y = 0;
+	tc = entitySystem->createComponent<TransformComponent>(e2);
+	MeshComponent *mc = entitySystem->createComponent<MeshComponent>(e2);
+  mc->path = "models/knight/knight.scene.xml";
+  tc->pos.y = 0;
 
   Entity *e3 = new Entity;
   tc = entitySystem->createComponent<TransformComponent>(e3);
   lc = entitySystem->createComponent<LightComponent>(e3);
-  WobbleMoverComponent *wc = entitySystem->createComponent<WobbleMoverComponent>(e3);
-	mc = new MeshComponent("models/knight/knight.scene.xml");
-	entitySystem->addComponent<MeshComponent>(e3,mc);
-
+  wc = entitySystem->createComponent<WobbleMoverComponent>(e3);
 
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();

@@ -11,4 +11,8 @@ public:
 	EntitySystem *ensys;
 	RenderSystem(EntitySystem *en);
 	void run(float dt);
+private:
+  CameraComponent* runCamera(float dt);
+  void runMeshes(float dt);
+  void runLights(float dt);
 };

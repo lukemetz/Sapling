@@ -15,12 +15,11 @@ TransformComponent::TransformComponent()
 	rot = Vec3f(0,0,0);
 }
 
-MeshComponent::MeshComponent(std::string path)
+MeshComponent::MeshComponent()
 {
-	res = h3dAddResource( H3DResTypes::SceneGraph, path.c_str(), 0 );
-	std::string s = Application::appPath+"Content";
-	h3dutLoadResourcesFromDisk(s.c_str());
-	node = h3dAddNodes( H3DRootNode, res );
+  oldPath = "";
+  res = 0;
+  node = 0;
 }
 
 InputComponent::InputComponent()

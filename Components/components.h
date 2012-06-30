@@ -8,9 +8,10 @@
 
 struct CameraComponent : public Component
 {
+	CameraComponent();
+
 	H3DNode node;
 	H3DRes pipeline;
-	CameraComponent();
 };
 
 struct TransformComponent : public Component
@@ -23,9 +24,13 @@ struct TransformComponent : public Component
 
 struct MeshComponent : public Component
 {
-	H3DRes res;
-	H3DNode node;
-	MeshComponent(std::string path);
+  std::string path;
+  MeshComponent();
+
+  H3DNode node;
+  H3DRes res;
+  std::string oldPath;
+  void loadResources();
 };
 
 struct InputComponent : public Component
@@ -41,9 +46,10 @@ struct InputComponent : public Component
 
 struct LightComponent : public Component
 {
-  H3DNode node;
   Vec3f color;
   float radius;
   float fieldOfView;
   LightComponent();
+
+  H3DNode node;
 };
