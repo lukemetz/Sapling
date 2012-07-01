@@ -22,3 +22,9 @@ Sapling
 
 # Horde3d Log
 Horde3D_Log.html
+
+# Test Binary
+Tests/SaplingTests
+Tests/run.sh
+Tests/Makefile
+
