@@ -31,6 +31,7 @@ public:
   virtual void run(float dt)
   {
   };
+  virtual ~System();
 };
 
 class EntitySystem

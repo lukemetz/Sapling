@@ -38,3 +38,7 @@ void EntitySystem::update(float dt)
     (*it)->run(dt);
   }
 }
+
+System::~System()
+{
+}
