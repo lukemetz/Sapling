@@ -1,0 +1,24 @@
+{
+  "TransformComponent" : 
+    {
+      "params" : 
+        {
+          "pos":"vec3",
+          "scale":"vec3",
+          "rot":"vec3"
+        },
+        "header": "components.h"
+    },
+
+    "InputComponent":
+    {
+      "params" : {},
+      "header": "components.h"
+    },
+
+    "CameraComponent":
+    {
+      "params" : {},
+      "header": "components.h"
+    }
+}

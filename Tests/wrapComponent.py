@@ -56,3 +56,8 @@ component = {"name": "TransformComponent",\
     "params":{"pos" : "vec3", "scale" : "vec3", "rot" : "vec3"},\
     "header" : 'components.h'}
 wrapComponent(component);
+
+component = {"name": "CameraComponent", \
+    "params":{}, "header": 'components.h'}
+
+wrapComponent(component)
