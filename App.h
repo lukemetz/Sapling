@@ -3,6 +3,8 @@
 #include <horde3d/Horde3D.h>
 #include <sstream>
 #include <string>
+#include <GL/glfw.h>
+#include <iostream>
 
 #include "Components/components.h"
 #include "Components/userComponents.h"
@@ -16,7 +18,7 @@ public:
 	const char *getTitle() { return "Knight - Horde3D Sample"; }
 
 	bool init();
-	void mainLoop( float fps );
+	void mainLoop( float dt );
 	void release();
 	void resize( int width, int height );
   void close();
@@ -28,7 +30,15 @@ public:
   static std::string appPath;
 
   bool running;
+
+  static bool setupWindow(int width, int height, bool fullscreen);
+  static std::string extractAppPath(char *fullPath);
+
 private:
+
+  int appWidth;
+  int appHeight;
+  bool fullScreen;
 
 	float              _curFPS;
 	std::stringstream  _text;

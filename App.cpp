@@ -20,7 +20,6 @@ Application *Application::instance = NULL;
 Application::Application( const std::string &_appPath )
 {
 	_curFPS = 30;
-
 	_statMode = 0;
 	_freezeMode = 0; _debugViewMode = false; _wireframeMode = false;
 	_cam = 0;
@@ -28,6 +27,38 @@ Application::Application( const std::string &_appPath )
 
   running = true;
   Application::instance = this;
+
+
+  appWidth = 1024;
+  appHeight = 576;
+  fullScreen = false;
+
+
+	glfwInit();
+	if(!setupWindow(appWidth, appHeight, fullScreen)){
+    printf("Error setting up window\n");
+    return;
+  }
+
+	if( !fullScreen ) {
+    glfwSetWindowTitle(getTitle());
+  }
+
+	if ( !init() )
+	{
+		glfwCloseWindow();
+		glfwOpenWindow( 800, 16, 8, 8, 8, 8, 24, 8, GLFW_WINDOW );
+		glfwSetWindowTitle( "Unable to initalize engine - Make sure you have an OpenGL 2.0 compatible graphics card" );
+		double startTime = glfwGetTime();
+		while( glfwGetTime() - startTime < 5.0 ) {}  // Sleep
+
+    std::cout << "Unable to initalize engine" << std::endl;
+		std::cout << "Make sure you have an OpenGL 2.0 compatible graphics card";
+		glfwTerminate();
+		return;
+	}
+	resize( appWidth, appHeight );
+
 }
 
 Application *Application::sharedInstance()
@@ -97,17 +128,19 @@ void Application::engineInit() {
   entitySystem->addSystem<WobbleMoverSystem>();
 }
 
-void Application::mainLoop( float fps )
+void Application::mainLoop( float dt )
 {
-	_curFPS = fps;
-  float dt = 1/fps;
-
   entitySystem->update(dt);
+
+
+  glfwSwapBuffers();
 }
 
 void Application::release()
 {
 	h3dRelease();
+	glfwEnable( GLFW_MOUSE_CURSOR );
+	glfwTerminate();
 }
 
 void Application::resize( int width, int height )
@@ -125,4 +158,40 @@ void Application::resize( int width, int height )
 	// Set virtual camera parameters
 	h3dSetupCameraView( cc->node, 45.0f, (float)width / height, 0.1f, 1000.0f );
 	h3dResizePipelineBuffers( cc->pipeline, width, height );
+}
+
+int windowCloseListener()
+{
+  Application::sharedInstance()->running = false;
+	return 0;
+}
+
+bool Application::setupWindow( int width, int height, bool fullscreen )
+{
+	if( !glfwOpenWindow( width, height, 8, 8, 8, 8, 24, 8, fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW ) )
+	{
+		glfwTerminate();
+		return false;
+	}
+	glfwSwapInterval( 0 );
+	glfwSetWindowCloseCallback( windowCloseListener );
+	return true;
+}
+
+std::string Application::extractAppPath( char *fullPath )
+{
+#ifdef __APPLE__
+	std::string s( fullPath );
+	for( int i = 0; i < 4; ++i )
+		s = s.substr( 0, s.rfind( "/" ) );
+	return s + "/../";
+#else
+	const std::string s( fullPath );
+	if( s.find( "/" ) != std::string::npos )
+		return s.substr( 0, s.rfind( "/" ) ) + "/";
+	else if( s.find( "\\" ) != std::string::npos )
+		return s.substr( 0, s.rfind( "\\" ) ) + "\\";
+	else
+		return "";
+#endif
 }
