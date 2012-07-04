@@ -20,5 +20,46 @@
     {
       "params" : {},
       "header": "components.h"
+    },
+
+    "LightComponent":
+    {
+      "params" :
+      {
+        "color" : "vec3",
+        "radius" : "float",
+        "fieldOfView" : "float"
+      },
+      "header" : "components.h"
+    },
+
+    "MeshComponent":
+    {
+      "params" : 
+      {
+        "path":"string"
+      },
+      "header" : "components.h"
+    },
+
+    "InputMoverComponent":
+    {
+      "params" :
+      {
+        "speed": "float"
+      },
+      "header" : "userComponents.h"
+    },
+
+    "WobbleMoverComponent" :
+    {
+      "params" : 
+      {
+        "period" : "float",
+        "displacement": "vec3",
+        "offset": "vec3",
+        "time" : "float"
+      },
+      "header" : "userComponents.h"
     }
 }

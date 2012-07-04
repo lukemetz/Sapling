@@ -2,6 +2,7 @@
 #include <jansson.h>
 #include "Wrappers/WrapManager.h"
 #include "Components/components.h"
+#include "Components/userComponents.h"
 #include "EntitySystem.h"
 
 
@@ -13,7 +14,11 @@ TEST(WrapManagerTest, loadEntity)
                             :{\"pos\":[1.0,2.0,3], \
                               \"scale\":[3,2,1], \
                               \"rot\":[1.12,2.11,3.04]},\
-                            \"InputComponent\":{}}";
+                            \"InputComponent\":{}, \
+                              \"MeshComponent\" : {\
+                              \"path\" : \"someMesh.xml\"}, \
+                              \"WobbleMoverComponent\" : {\
+                              \"period\":4.123}}";
 
   json_error_t *error = NULL;
   WrapManager *wrapManager = new WrapManager();
@@ -37,4 +42,11 @@ TEST(WrapManagerTest, loadEntity)
   std::vector<Entity*> entities;
   ensys->getEntities<InputComponent>(entities);
   EXPECT_EQ(entities.size(), 1);
+
+  MeshComponent *mc = en->getAs<MeshComponent>();
+  EXPECT_STREQ("someMesh.xml", mc->path.c_str());
+
+  WobbleMoverComponent *c = en->getAs<WobbleMoverComponent>();
+
+  EXPECT_FLOAT_EQ(c->period, 4.123);
 }

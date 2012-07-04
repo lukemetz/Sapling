@@ -49,13 +49,28 @@ void %(componentName)sWrap::set(json_t *obj)
       component->%(param)s.z = json_number_value(v);
     }
 """
+  floatProperty = """\
+    if(strcmp(key,"%(param)s")==0) {
+      component->%(param)s = json_number_value(value);
+    }
+"""
+  stringProperty = """\
+    if(strcmp(key,"%(param)s")==0) {
+      const char * val = json_string_value(value);
+      component->%(param)s = std::string(val); 
+    }
+"""
 
   end = """  }
 }"""
-  cpp.write(intro%{"componentName" : component["name"]});
+  cpp.write(intro%{"componentName" : component["name"]})
   par = component["params"]
   for name in par:
     if(par[name] == "vec3"):
-      cpp.write(vec3Property%{"param": name});
+      cpp.write(vec3Property%{"param": name})
+    if(par[name] == "float"):
+      cpp.write(floatProperty%{"param": name})
+    if(par[name] == "string"):
+      cpp.write(stringProperty%{"param": name})
   cpp.write(end);
-
+  cpp.close()

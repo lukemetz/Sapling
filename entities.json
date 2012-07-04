@@ -1,0 +1,32 @@
+{
+  "knightComponent":{
+    "TransformComponent":{
+      "pos":[0,0,0]
+    },
+    "MeshComponent": {
+      "path":"models/knight/knight.scene.xml" 
+    }
+  },
+
+  "camera": {
+    "TransformComponent": {
+    },
+    "CameraComponent": {
+    },
+    "LightComponent": {
+    },
+    "InputComponent" : {
+    },
+    "InputMoverComponent" : {
+    }
+  },
+  
+  "light": {
+    "TransformComponent": {
+    },
+    "LightComponent": {
+    },
+    "WobbleComponent": {
+    }
+  }
+}

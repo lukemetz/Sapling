@@ -9,6 +9,8 @@
 #include "Systems/InputMoverSystem.h"
 #include "Systems/InputHelperSystem.h"
 #include "Systems/WobbleMoverSystem.h"
+#include "Wrappers/WrapManager.h"
+#include <jansson.h>
 
 using namespace std;
 
@@ -78,31 +80,15 @@ bool Application::init()
 
 void Application::engineInit() {
 	entitySystem = new EntitySystem();
-	Entity *e1 = new Entity;
-	TransformComponent *tc;
-  CameraComponent *cc;
-  InputComponent *ic;
-  LightComponent *lc;
-  WobbleMoverComponent *wc;
-
-  tc = entitySystem->createComponent<TransformComponent>(e1);
-	cc = entitySystem->createComponent<CameraComponent>(e1);
-	ic = entitySystem->createComponent<InputComponent>(e1);
-  lc = entitySystem->createComponent<LightComponent>(e1);
-  lc->color[1] = 0;
-
-	entitySystem->createComponent<InputMoverComponent>(e1);
-
-	Entity *e2 = new Entity;
-	tc = entitySystem->createComponent<TransformComponent>(e2);
-	MeshComponent *mc = entitySystem->createComponent<MeshComponent>(e2);
-  mc->path = "models/knight/knight.scene.xml";
-  tc->pos.y = 0;
-
-  Entity *e3 = new Entity;
-  tc = entitySystem->createComponent<TransformComponent>(e3);
-  lc = entitySystem->createComponent<LightComponent>(e3);
-  wc = entitySystem->createComponent<WobbleMoverComponent>(e3);
+  WrapManager *wrapManager = new WrapManager();
+  json_error_t error;
+  json_t *entity = json_load_file("entities.json", 0, &error);
+  const char *key;
+  json_t *value;
+  json_object_foreach(entity, key, value) {
+    printf("%s Entity found \n", key);
+    wrapManager->loadEntity(entitySystem, value);
+  }
 
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();
