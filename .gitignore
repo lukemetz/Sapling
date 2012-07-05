@@ -12,7 +12,7 @@
 *.a
 
 # building dirs and files
-MakeFile
+Makefile
 obj
 Sapling
 *.make
@@ -24,7 +24,7 @@ Sapling
 Horde3D_Log.html
 
 # Test Binary
-Tests/SaplingTests
+Tests/Tests
 Tests/run.sh
 Tests/Makefile
 
