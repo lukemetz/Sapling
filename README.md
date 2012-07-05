@@ -6,18 +6,20 @@ It was inspired by the series of [blog post by T=Machine](http://t-machine.org/i
 
 ##Dependencies
 
-Sapling is currently built with premake4.
+Premake4 is used to build the project.
 
-It uses Horde3D for graphics. Many of the default assets and graphics pipelines are also from Horde3D. The c++ math helper file, utMath.h, also comes from Horde3D with slight modifications.
+Horde3D is used for graphics. Many of the default assets and graphics pipelines are also from Horde3D. The c++ math helper file, utMath.h, also comes from Horde3D with slight modifications.
 
-GLFW is used for input as well as creating a openGL window.
+GLFW is used for input as well as creating a OpenGL window.
+
+Jansson is used for json parsing.
+
+Python is used to generated json wrappers for components.
 
 ##Building
 Sapling should mostly be cross platform, but it has only been tested on Linux.
 
 To build simply run premake4 gmake. Then make in the main directory.
-
-Currently a sample test application is built instead of a library. This will change soon.
 
 ##License
 
