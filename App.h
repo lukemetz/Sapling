@@ -23,16 +23,13 @@ public:
 	void resize( int width, int height );
   void close();
 
-	void engineInit();
-
-  static Application *sharedInstance();
-
-  static std::string appPath;
-
-  bool running;
-
   static bool setupWindow(int width, int height, bool fullscreen);
   static std::string extractAppPath(char *fullPath);
+
+  static Application *sharedInstance();
+  static std::string appPath;
+  bool running;
+	EntitySystem *entitySystem;
 
 private:
 
@@ -51,8 +48,6 @@ private:
 	H3DRes             _fontMatRes, _panelMatRes;
 	H3DRes             _pipeRes, _logoMatRes, _hdrPipeRes, _forwardPipeRes;
 	H3DNode            _cam;
-
-	EntitySystem *entitySystem;
 
   static Application *instance;
 };

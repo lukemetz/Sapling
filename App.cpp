@@ -1,16 +1,16 @@
-#include "App.h"
 #include <horde3d/Horde3D.h>
 #include <horde3d/Horde3DUtils.h>
 #include <math.h>
 #include <iomanip>
+#include <jansson.h>
 
+#include "App.h"
 #include "Systems/RenderSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/InputMoverSystem.h"
 #include "Systems/InputHelperSystem.h"
 #include "Systems/WobbleMoverSystem.h"
 #include "Wrappers/WrapManager.h"
-#include <jansson.h>
 
 using namespace std;
 
@@ -28,11 +28,9 @@ Application::Application( const std::string &_appPath )
   running = true;
   Application::instance = this;
 
-
   appWidth = 1024;
   appHeight = 576;
   fullScreen = false;
-
 
 	glfwInit();
 	if(!setupWindow(appWidth, appHeight, fullScreen)){
@@ -57,7 +55,6 @@ Application::Application( const std::string &_appPath )
 		glfwTerminate();
 		return;
 	}
-	resize( appWidth, appHeight );
 
 }
 
@@ -104,29 +101,10 @@ bool Application::init()
 	h3dSetMaterialUniform( matRes, "hdrExposure", 2.5f, 0, 0, 0 );
 	h3dSetMaterialUniform( matRes, "hdrBrightThres", 0.5f, 0, 0, 0 );
 	h3dSetMaterialUniform( matRes, "hdrBrightOffset", 0.08f, 0, 0, 0 );
-
-	engineInit();
+  entitySystem = new EntitySystem();
 	return true;
 }
 
-void Application::engineInit() {
-	entitySystem = new EntitySystem();
-  WrapManager *wrapManager = new WrapManager();
-  json_error_t error;
-  json_t *entity = json_load_file("entities.json", 0, &error);
-  const char *key;
-  json_t *value;
-  json_object_foreach(entity, key, value) {
-    printf("%s Entity found \n", key);
-    wrapManager->loadEntity(entitySystem, value);
-  }
-
-  entitySystem->addSystem<RenderSystem>();
-  entitySystem->addSystem<InputSystem>();
-  entitySystem->addSystem<InputMoverSystem>();
-  entitySystem->addSystem<InputHelperSystem>();
-  entitySystem->addSystem<WobbleMoverSystem>();
-}
 
 void Application::mainLoop( float dt )
 {
@@ -147,7 +125,12 @@ void Application::resize( int width, int height )
 {
 	std::vector<Entity*> entities;
 	entitySystem->getEntities<CameraComponent>(entities);
-	CameraComponent* cc = entities[0]->getAs<CameraComponent>(); //Todo add a check here.
+  if(entities.size() != 1) {
+    printf("You need one CameraComponent, you currently have %d\n",
+        static_cast<int>(entities.size()));
+    throw "Need a camera";
+  }
+	CameraComponent* cc = entities[0]->getAs<CameraComponent>();
 
 	// Resize viewport
 	h3dSetNodeParamI( cc->node, H3DCamera::ViewportXI, 0 );
