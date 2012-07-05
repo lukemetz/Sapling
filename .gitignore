@@ -28,5 +28,7 @@ Tests/SaplingTests
 Tests/run.sh
 Tests/Makefile
 
+bin
+
 #python files
 __pycache__
