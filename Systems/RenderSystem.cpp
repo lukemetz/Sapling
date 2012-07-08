@@ -32,7 +32,7 @@ void RenderSystem::runMeshes(float dt)
   TransformComponent* tc;
   for(std::vector<Entity*>::iterator it = meshes.begin(); it!=meshes.end(); ++it) {
     MeshComponent *mc = (*it)->getAs<MeshComponent>();
-    if (mc->oldPath != mc->path) {
+    if (mc->oldPath.compare(mc->path) != 0) {
       mc->res = h3dAddResource(H3DResTypes::SceneGraph, mc->path.c_str(), 0);
       std::string s = Application::appPath+"Content";
       h3dutLoadResourcesFromDisk(s.c_str());
