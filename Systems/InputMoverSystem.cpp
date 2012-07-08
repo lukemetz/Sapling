@@ -12,7 +12,7 @@ void InputMoverSystem::run(float dt)
 		tc = (*it)->getAs<TransformComponent>();
 		ic = (*it)->getAs<InputComponent>();
 
-		float curVel = .1;
+		float curVel = imc->speed;
 
 		if( ic->keys['W'] )
 		{
