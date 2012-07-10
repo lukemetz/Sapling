@@ -1,6 +1,6 @@
 solution "Sapling"
    configurations { "Debug", "Release" }
-   postbuildcommands {"LD_LIBRARY_PATH=."} 
+   postbuildcommands {"LD_LIBRARY_PATH=lib/"} 
    project "Sapling"
       kind "SharedLib"
       language "C++"
@@ -23,7 +23,7 @@ solution "Sapling"
   project "Samples"
     kind "ConsoleApp"
     language "C++"
-      files { "Samples/*.h", "Samples/*.cpp"}
+      files { "Samples/demo/*.h", "Samples/demo/*.cpp"}
       links{"Sapling", 'glfw','Horde3D', 'Horde3DUtils', "jansson"}
       includedirs{"."} 
       if os.is('linux') then --Try to find horde3d and glfw
@@ -31,7 +31,7 @@ solution "Sapling"
         includedirs{'/usr/local/include/'}
       end
       buildoptions{"-Wall"} 
-      targetdir "Samples"
+      targetdir "Samples/demo"
       configuration "Debug"
          defines { "DEBUG" }
          flags { "Symbols" }
@@ -39,6 +39,24 @@ solution "Sapling"
          defines { "NDEBUG" }
          flags { "Optimize" }
 
+  project "Tactics"
+    kind "ConsoleApp"
+    language "C++"
+      files { "Samples/tactics/**.h", "Samples/tactics/**.cpp"}
+      links{"Sapling", 'glfw','Horde3D', 'Horde3DUtils', "jansson"}
+      includedirs{".","Samples/tactics/"} 
+      if os.is('linux') then --Try to find horde3d and glfw
+        libdirs{'/usr/local/lib'}
+        includedirs{'/usr/local/include/'}
+      end
+      buildoptions{"-Wall"} 
+      targetdir "Samples/tactics"
+      configuration "Debug"
+         defines { "DEBUG" }
+         flags { "Symbols" }
+      configuration "Release"
+         defines { "NDEBUG" }
+         flags { "Optimize" }
 
   project "Tests"
     kind "ConsoleApp"
