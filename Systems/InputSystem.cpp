@@ -14,6 +14,13 @@ void InputSystem::run(float dt)
     prevKeys[i] = keys[i];
 		keys[i] = (glfwGetKey( i ) == GLFW_PRESS);
   }
+
+  for( int i = 0; i < 8; ++i) {
+    prevMouseButtons[i] = mouseButtons[i];
+    mouseButtons[i] = (glfwGetMouseButton(GLFW_MOUSE_BUTTON_1
+          +i) != GLFW_RELEASE);
+  }
+
   glfwGetMousePos(&mouseX, &mouseY);
 
   std::vector<Entity*> entities;
@@ -23,6 +30,8 @@ void InputSystem::run(float dt)
 		ic = (*it)->getAs<InputComponent>();
     ic->keys = keys;
 		ic->prevKeys = prevKeys;
+    ic->mouseButtons = mouseButtons;
+    ic->prevMouseButtons = prevMouseButtons;
 		ic->prevMouseX = ic->mouseX;
 		ic->prevMouseY = ic->mouseY;
 		ic->mouseX = mouseX;

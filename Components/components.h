@@ -41,7 +41,9 @@ struct InputComponent : public Component
 	float mouseY;
 	float prevMouseX;
 	float prevMouseY;
-	InputComponent();
+  bool* mouseButtons;
+  bool* prevMouseButtons;
+  InputComponent();
 };
 
 struct LightComponent : public Component

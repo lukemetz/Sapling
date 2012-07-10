@@ -8,7 +8,10 @@ class InputSystem : public System
 public:
 	bool keys[320];
 	bool prevKeys[320];
-	int mouseX;
+  bool mouseButtons[8];
+  bool prevMouseButtons[8];
+
+  int mouseX;
 	int mouseY;
   EntitySystem *ensys;
 
