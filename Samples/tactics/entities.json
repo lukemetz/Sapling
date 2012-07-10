@@ -1,0 +1,23 @@
+{
+  "camera": {
+    "TransformComponent": {
+    },
+    "CameraComponent": {
+    },
+    "InputComponent" : {
+    },
+    "InputMoverComponent" : {
+      "speed" : 0.09 
+    }
+  },
+  
+  "light": {
+    "TransformComponent": {
+      "pos": [5,5,5]
+    },
+    "LightComponent": {
+      "radius": 100,
+      "color" : [0.3, 0.3, 0.3]
+    }
+  }
+}
