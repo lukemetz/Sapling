@@ -4,6 +4,6 @@ class MovementSystem : public System
 {
 public:
   EntitySystem *ensys;
-  MovementSystem(EntitySystem *entitySystem);
+  MovementSystem();
   void run(float dt);
 };

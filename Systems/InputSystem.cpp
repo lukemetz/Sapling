@@ -1,9 +1,9 @@
 #include "InputSystem.h"
 #include <GL/glfw.h>
 
-InputSystem::InputSystem(EntitySystem *en)
+InputSystem::InputSystem()
 {
-  ensys = en;
+  ensys = EntitySystem::sharedInstance();
 
   glfwEnable( GLFW_STICKY_KEYS );
 }

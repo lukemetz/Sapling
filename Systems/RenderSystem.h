@@ -9,7 +9,7 @@ class RenderSystem : public System
 {
 public:
 	EntitySystem *ensys;
-	RenderSystem(EntitySystem *en);
+	RenderSystem();
 	void run(float dt);
 private:
   CameraComponent* runCamera(float dt);

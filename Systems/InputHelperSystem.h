@@ -9,8 +9,8 @@
 class InputHelperSystem : public System {
 public:
 	EntitySystem *ensys;
-	InputHelperSystem(EntitySystem *en) {
-		ensys = en;
+	InputHelperSystem() {
+		ensys = EntitySystem::sharedInstance();
 	};
 	void run(float dt);
 };

@@ -9,8 +9,8 @@
 class WobbleMoverSystem : public System {
 public:
 	EntitySystem *ensys;
-	WobbleMoverSystem(EntitySystem *en) {
-		ensys = en;
+	WobbleMoverSystem() {
+		ensys = EntitySystem::sharedInstance();
 	};
 	void run(float dt);
 };

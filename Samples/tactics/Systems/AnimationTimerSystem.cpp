@@ -1,8 +1,8 @@
 #include "AnimationTimerSystem.h"
 #include "Components/AnimationTimerComponent.h"
-AnimationTimerSystem::AnimationTimerSystem(EntitySystem* entitySystem)
+AnimationTimerSystem::AnimationTimerSystem()
 {
-  ensys = entitySystem;
+  ensys = EntitySystem::sharedInstance();
 }
 
 void AnimationTimerSystem::run(float dt)

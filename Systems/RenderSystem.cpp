@@ -1,8 +1,8 @@
 #include "RenderSystem.h"
 
-RenderSystem::RenderSystem(EntitySystem *en)
+RenderSystem::RenderSystem()
 {
-  ensys = en;
+  ensys = EntitySystem::sharedInstance();
 }
 
 CameraComponent* RenderSystem::runCamera(float dt)

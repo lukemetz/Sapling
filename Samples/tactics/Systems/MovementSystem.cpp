@@ -4,9 +4,9 @@
 #include "Components/AnimationTimerComponent.h"
 #include <Components/components.h>
 
-MovementSystem::MovementSystem(EntitySystem *entitySystem)
+MovementSystem::MovementSystem()
 {
-  ensys = entitySystem;
+  ensys = EntitySystem::sharedInstance();
 }
 
 void MovementSystem::run(float dt)

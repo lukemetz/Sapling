@@ -18,7 +18,7 @@ class InputSystemTest: public ::testing::Test
         entities.push_back(entity);
         entitySystem->createComponent<InputComponent>(entity);
       }
-      inputSystem = new InputSystem(entitySystem);
+      inputSystem = new InputSystem();
     }
 
     virtual void TearDown()

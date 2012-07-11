@@ -9,8 +9,8 @@
 class InputMoverSystem : public System {
 public:
 	EntitySystem *ensys;
-	InputMoverSystem(EntitySystem *en) {
-		ensys = en;
+	InputMoverSystem() {
+		ensys = EntitySystem::sharedInstance();
 	};
 	void run(float dt);
 };

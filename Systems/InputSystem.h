@@ -15,6 +15,6 @@ public:
 	int mouseY;
   EntitySystem *ensys;
 
-  InputSystem(EntitySystem *en);
+  InputSystem();
 	void run(float dt);
 };

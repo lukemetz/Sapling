@@ -83,7 +83,7 @@ public:
 
    template<typename T> T* addSystem()
    {
-      T *system = new T(this);
+      T *system = new T();
       systems.push_back(system);
       return system;
    }

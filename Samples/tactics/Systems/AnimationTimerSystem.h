@@ -3,7 +3,7 @@
 class AnimationTimerSystem : public System
 {
   public:
-    AnimationTimerSystem(EntitySystem* entitySystem);
+    AnimationTimerSystem();
     void run(float dt);
     EntitySystem *ensys;
 };
