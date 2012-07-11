@@ -114,4 +114,8 @@ TEST_F(EntitySystemTest, removeAllComponents)
   delete entity;
 }
 
-
+TEST_F(EntitySystemTest, singleton)
+{
+  EntitySystem *ensys = EntitySystem::sharedInstance();
+  EXPECT_EQ(ensys, entitySystem);
+}

@@ -40,6 +40,8 @@ public:
    EntitySystem();
    ~EntitySystem();
 
+   static EntitySystem *sharedInstance();
+
    template<typename T> T *getComponent(Entity *e)
    {
       return (T*)e->mComponents[typeid(T).name()];
@@ -91,6 +93,7 @@ public:
 protected:
    std::multimap<TypeNameKey, Entity*> mComponentStore;
    std::vector<System *> systems;
+   static EntitySystem *instance;
 };
 
 template<typename Type> Type *Entity::getAs()

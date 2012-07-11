@@ -1,6 +1,7 @@
 #include "EntitySystem.h"
 
 EntitySystem *Entity::entitySystem = 0;
+EntitySystem *EntitySystem::instance = NULL;
 
 Entity::Entity()
 {
@@ -9,6 +10,7 @@ Entity::Entity()
 EntitySystem::EntitySystem()
 {
 	Entity::entitySystem = this;
+  EntitySystem::instance = this;
 }
 
 EntitySystem::~EntitySystem()
@@ -20,6 +22,14 @@ EntitySystem::~EntitySystem()
   systems.clear();
 
   //TODO delete memory for components and entities
+}
+
+EntitySystem *EntitySystem::sharedInstance()
+{
+  if (EntitySystem::instance == NULL) {
+    new EntitySystem();
+  }
+  return EntitySystem::instance;
 }
 
 void EntitySystem::removeAllComponents(Entity *e)
