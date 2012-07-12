@@ -19,5 +19,14 @@
       "radius": 100,
       "color" : [0.3, 0.3, 0.3]
     }
+  },
+  "light2": {
+    "TransformComponent": {
+      "pos": [10,5,5]
+    },
+    "LightComponent": {
+      "radius": 100,
+      "color" : [0.4, 0.4, 0.4]
+    }
   }
 }
