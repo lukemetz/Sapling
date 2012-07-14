@@ -42,6 +42,8 @@ void RenderSystem::runMeshes(float dt)
       h3dRemoveNode(mc->node);
       mc->node = h3dAddNodes(H3DRootNode, mc->res);
       mc->oldPath = mc->path;
+
+      Utils::sharedInstance()->addNodeEntity(mc->node, entity);
     }
 
 		tc = entity->getAs<TransformComponent>();
@@ -51,8 +53,6 @@ void RenderSystem::runMeshes(float dt)
 		h3dSetNodeTransform( mc->node, tc->pos.x,   tc->pos.y,   tc->pos.z,
 	    		          						   tc->rot.x,   tc->rot.y,   tc->rot.z,
 			     					          	   tc->scale.x, tc->scale.y, tc->scale.z );
-    printf("relating %d to en \n", mc->node);
-    Utils::sharedInstance()->addNodeEntity(mc->node, entity);
   }
 }
 
