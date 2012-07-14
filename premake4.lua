@@ -12,7 +12,7 @@ solution "Sapling"
         libdirs{'/usr/local/lib'}
         includedirs{'/usr/local/include/'}
       end
-      buildoptions{"-Wall"} 
+      buildoptions{"-std=c++11 -Wall"} 
       configuration "Debug"
          defines { "DEBUG" }
          flags { "Symbols" }
