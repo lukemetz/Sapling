@@ -1,7 +1,7 @@
 Sapling
 =======
 
-Sapling is a highly experimental entity-system based game engine.
+Sapling is a highly experimental entity-system based game engine written in c++11.
 It was inspired by the series of [blog post by T=Machine](http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/).
 
 ##Dependencies
