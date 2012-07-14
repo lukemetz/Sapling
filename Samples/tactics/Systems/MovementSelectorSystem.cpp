@@ -2,6 +2,7 @@
 
 #include "Components/MovementComponent.h"
 #include "Components/AnimationTimerComponent.h"
+#include "Components/TileSelectedComponent.h"
 #include <Components/components.h>
 #include <App.h>
 #include "Utils.h"
@@ -39,7 +40,11 @@ void MovementSelectorSystem::run(float dt)
         H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
         Entity * en = Utils::sharedInstance()->getEntityForNode(node);
         if (en != nullptr) {
-          en->getAs<TransformComponent>()->scale.x *= 2;
+          TileSelectedComponent *tc = en->getAs<TileSelectedComponent>();
+          if (tc != nullptr) {
+            tc->selected = 1;
+
+          }
         }
       }
     }

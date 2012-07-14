@@ -8,9 +8,11 @@
 #include "Components/UnitComponent.h"
 #include "Components/AnimationTimerComponent.h"
 #include "Components/MovementComponent.h"
+#include "Components/TileSelectedComponent.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
 #include "Systems/MovementSelectorSystem.h"
+#include "Systems/TileSelectedSystem.h"
 
 #include <stdlib.h>
 
@@ -45,6 +47,7 @@ void engineInit() {
       entitySystem->createComponent<MeshComponent>(tile);
       entitySystem->createComponent<TransformComponent>(tile);
       entitySystem->createComponent<TileComponent>(tile);
+      entitySystem->createComponent<TileSelectedComponent>(tile);
       tile->getAs<MeshComponent>()->path = "models/tile.scene.xml";
       tile->getAs<TransformComponent>()->pos = Vec3f(i, (float)rand()/RAND_MAX/4.0f, j);
     }
@@ -87,6 +90,7 @@ void engineInit() {
   entitySystem->createComponent<AnimationTimerComponent>(en);
   entitySystem->createComponent<MovementComponent>(en);
   entitySystem->createComponent<InputComponent>(en);
+  entitySystem->createComponent<TileSelectedComponent>(en);
 
   en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
   en->getAs<TileObjectComponent>()->tile = entities[5][5];
@@ -107,6 +111,7 @@ void engineInit() {
   entitySystem->addSystem<MovementSystem>();
   entitySystem->addSystem<AnimationTimerSystem>();
   entitySystem->addSystem<MovementSelectorSystem>();
+  entitySystem->addSystem<TileSelectedSystem>();
 }
 
 int main( int argc, char** argv )
