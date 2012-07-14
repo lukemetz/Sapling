@@ -49,12 +49,9 @@ public:
 
    template<typename T> void getEntities(std::vector<Entity*> &result)
    {
-      std::pair< std::multimap< TypeNameKey, Entity* >::iterator,
-         std::multimap< TypeNameKey, Entity* >::iterator> iterPair;
-
       std::multimap< TypeNameKey, Entity* >::iterator iter;
 
-      iterPair = mComponentStore.equal_range(typeid(T).name());
+      auto iterPair = mComponentStore.equal_range(typeid(T).name());
       for(iter = iterPair.first; iter != iterPair.second; ++iter) {
          result.push_back(iter->second);
       }
