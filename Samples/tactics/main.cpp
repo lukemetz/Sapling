@@ -10,6 +10,7 @@
 #include "Components/MovementComponent.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
+#include "Systems/MovementSelectorSystem.h"
 
 #include <stdlib.h>
 
@@ -85,6 +86,7 @@ void engineInit() {
   entitySystem->createComponent<MovementComponent>(en);
   entitySystem->createComponent<AnimationTimerComponent>(en);
   entitySystem->createComponent<MovementComponent>(en);
+  entitySystem->createComponent<InputComponent>(en);
 
   en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
   en->getAs<TileObjectComponent>()->tile = entities[5][5];
@@ -104,6 +106,7 @@ void engineInit() {
   entitySystem->addSystem<WobbleMoverSystem>();
   entitySystem->addSystem<MovementSystem>();
   entitySystem->addSystem<AnimationTimerSystem>();
+  entitySystem->addSystem<MovementSelectorSystem>();
 }
 
 int main( int argc, char** argv )
