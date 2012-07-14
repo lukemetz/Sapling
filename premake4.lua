@@ -30,7 +30,7 @@ solution "Sapling"
         libdirs{'/usr/local/lib'}
         includedirs{'/usr/local/include/'}
       end
-      buildoptions{"-Wall"} 
+      buildoptions{"-std=c++11 -Wall"} 
       targetdir "Samples/demo"
       configuration "Debug"
          defines { "DEBUG" }
@@ -49,7 +49,7 @@ solution "Sapling"
         libdirs{'/usr/local/lib'}
         includedirs{'/usr/local/include/'}
       end
-      buildoptions{"-Wall"} 
+      buildoptions{"-std=c++11 -Wall"} 
       targetdir "Samples/tactics"
       configuration "Debug"
          defines { "DEBUG" }
@@ -68,7 +68,7 @@ solution "Sapling"
         libdirs{'/usr/local/lib'}
         includedirs{'/usr/local/include/'}
       end
-      buildoptions{"-Wall"} 
+      buildoptions{"-std=c++11 -Wall"} 
       targetdir "Tests"
       configuration "Debug"
          defines { "DEBUG" }
