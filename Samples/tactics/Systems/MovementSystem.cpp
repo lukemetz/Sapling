@@ -13,12 +13,10 @@ void MovementSystem::run(float dt)
 {
   std::vector<Entity*> entities;
   ensys->getEntities<MovementComponent>(entities);
-  std::vector<Entity*>::iterator it;
-  for(it = entities.begin(); it != entities.end(); ++it) {
-    Entity *en = *it;
-    MovementComponent *mc = en->getAs<MovementComponent>();
-    AnimationTimerComponent *at = en->getAs<AnimationTimerComponent>();
-    TransformComponent *tc = en->getAs<TransformComponent>();
+  for(Entity *entity : entities) {
+    MovementComponent *mc = entity->getAs<MovementComponent>();
+    AnimationTimerComponent *at = entity->getAs<AnimationTimerComponent>();
+    TransformComponent *tc = entity->getAs<TransformComponent>();
     if (mc != NULL && at != NULL && tc != NULL) {
       if(at->time > mc->startTime) {
         float difference = at->time - mc->startTime;
