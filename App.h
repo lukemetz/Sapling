@@ -29,12 +29,12 @@ public:
   static Application *sharedInstance();
   static std::string appPath;
   bool running;
-	EntitySystem *entitySystem;
-
-private:
 
   int appWidth;
   int appHeight;
+
+private:
+  EntitySystem *entitySystem;
   bool fullScreen;
 
 	float              _curFPS;

@@ -18,7 +18,7 @@ static double t0;
 static Application *app;
 
 void engineInit() {
-	EntitySystem *entitySystem = Application::sharedInstance()->entitySystem;
+	EntitySystem *entitySystem = EntitySystem::sharedInstance();
 
   WrapManager *wrapManager = new WrapManager();
   json_error_t error;
