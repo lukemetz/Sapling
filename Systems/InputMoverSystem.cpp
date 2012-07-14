@@ -7,10 +7,10 @@ void InputMoverSystem::run(float dt)
 	InputMoverComponent *imc;
 	TransformComponent * tc;
 	InputComponent *ic;
-	for(std::vector<Entity*>::iterator it = entities.begin(); it!=entities.end(); ++it) {
-		imc = (*it)->getAs<InputMoverComponent>();
-		tc = (*it)->getAs<TransformComponent>();
-		ic = (*it)->getAs<InputComponent>();
+	for(Entity* entity : entities) {
+		imc = entity->getAs<InputMoverComponent>();
+		tc = entity->getAs<TransformComponent>();
+		ic = entity->getAs<InputComponent>();
 
 		float curVel = imc->speed;
 

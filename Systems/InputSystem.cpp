@@ -26,8 +26,8 @@ void InputSystem::run(float dt)
   std::vector<Entity*> entities;
 	ensys->getEntities<InputComponent>(entities);
   InputComponent *ic;
-	for(std::vector<Entity*>::iterator it = entities.begin(); it!=entities.end(); ++it) {
-		ic = (*it)->getAs<InputComponent>();
+	for(Entity * entity : entities) {
+		ic = entity->getAs<InputComponent>();
     ic->keys = keys;
 		ic->prevKeys = prevKeys;
     ic->mouseButtons = mouseButtons;

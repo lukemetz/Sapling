@@ -1,4 +1,5 @@
 #include "RenderSystem.h"
+#include "Utils.h"
 
 RenderSystem::RenderSystem()
 {
@@ -20,6 +21,8 @@ CameraComponent* RenderSystem::runCamera(float dt)
 	h3dSetNodeTransform( cc->node, tc->pos.x,   tc->pos.y,   tc->pos.z,
                                  tc->rot.x,   tc->rot.y,   tc->rot.z,
                                  tc->scale.x, tc->scale.y, tc->scale.z);
+
+  Utils::sharedInstance()->addNodeEntity(cc->node, entities[0]);
   return cc;
 }
 
@@ -30,8 +33,8 @@ void RenderSystem::runMeshes(float dt)
 	ensys->getEntities<MeshComponent>(meshes);
 
   TransformComponent* tc;
-  for(std::vector<Entity*>::iterator it = meshes.begin(); it!=meshes.end(); ++it) {
-    MeshComponent *mc = (*it)->getAs<MeshComponent>();
+  for(Entity * entity : meshes) {
+    MeshComponent *mc = entity->getAs<MeshComponent>();
     if (mc->oldPath.compare(mc->path) != 0) {
       mc->res = h3dAddResource(H3DResTypes::SceneGraph, mc->path.c_str(), 0);
       std::string s = Application::appPath+"Content";
@@ -41,15 +44,18 @@ void RenderSystem::runMeshes(float dt)
       mc->oldPath = mc->path;
     }
 
-		tc = (*it)->getAs<TransformComponent>();
+		tc = entity->getAs<TransformComponent>();
     if (!tc)
       printf("RenderSystem requires a TransformComponent on the entity that has a CameraComponent \n");
 
 		h3dSetNodeTransform( mc->node, tc->pos.x,   tc->pos.y,   tc->pos.z,
 	    		          						   tc->rot.x,   tc->rot.y,   tc->rot.z,
 			     					          	   tc->scale.x, tc->scale.y, tc->scale.z );
-	}
+    printf("relating %d to en \n", mc->node);
+    Utils::sharedInstance()->addNodeEntity(mc->node, entity);
+  }
 }
+
 
 void RenderSystem::runLights(float dt)
 {
@@ -57,9 +63,9 @@ void RenderSystem::runLights(float dt)
   TransformComponent* tc;
   std::vector<Entity*> lights;
   ensys->getEntities<LightComponent>(lights);
-  for(std::vector<Entity*>::iterator it = lights.begin(); it != lights.end(); ++it) {
-    lc = (*it)->getAs<LightComponent>();
-    tc = (*it)->getAs<TransformComponent>();
+  for(Entity *entity : lights) {
+    lc = entity->getAs<LightComponent>();
+    tc = entity->getAs<TransformComponent>();
     h3dSetNodeTransform( lc->node,  tc->pos.x,   tc->pos.y,   tc->pos.z,
                                     tc->rot.x,   tc->rot.y,   tc->rot.z,
                                     tc->scale.x, tc->scale.y, tc->scale.z );
@@ -68,6 +74,7 @@ void RenderSystem::runLights(float dt)
     h3dSetNodeParamF(lc->node, H3DLight::ColorF3, 0, lc->color[0]);
     h3dSetNodeParamF(lc->node, H3DLight::ColorF3, 1, lc->color[1]);
     h3dSetNodeParamF(lc->node, H3DLight::ColorF3, 2, lc->color[2]);
+    Utils::sharedInstance()->addNodeEntity(lc->node, entity);
   }
 }
 
