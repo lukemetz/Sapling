@@ -9,6 +9,7 @@
 #include "Components/AnimationTimerComponent.h"
 #include "Components/MovementComponent.h"
 #include "Components/TileSelectedComponent.h"
+#include "Components/SelectedEntityComponent.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
 #include "Systems/MovementSelectorSystem.h"
@@ -86,11 +87,11 @@ void engineInit() {
   entitySystem->createComponent<UnitComponent>(en);
   entitySystem->createComponent<TransformComponent>(en);
   entitySystem->createComponent<MeshComponent>(en);
-  entitySystem->createComponent<MovementComponent>(en);
   entitySystem->createComponent<AnimationTimerComponent>(en);
   entitySystem->createComponent<MovementComponent>(en);
   entitySystem->createComponent<InputComponent>(en);
   entitySystem->createComponent<TileSelectedComponent>(en);
+  entitySystem->createComponent<SelectedEntityComponent>(en);
 
   en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
   en->getAs<TileObjectComponent>()->tile = entities[5][5];

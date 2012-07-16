@@ -3,6 +3,7 @@
 #include "Components/MovementComponent.h"
 #include "Components/AnimationTimerComponent.h"
 #include "Components/TileSelectedComponent.h"
+#include "Components/SelectedEntityComponent.h"
 #include <Components/components.h>
 #include <App.h>
 #include "Utils.h"
@@ -14,16 +15,15 @@ MovementSelectorSystem::MovementSelectorSystem()
 
 void MovementSelectorSystem::run(float dt)
 {
-  std::vector<Entity*> entities;
-  ensys->getEntities<MovementComponent>(entities);
-  std::vector<Entity*>::iterator it;
   Application *app = Application::sharedInstance();
 
   std::vector<Entity*> cameraEntities;
   ensys->getEntities<CameraComponent>(cameraEntities);
-
   Entity* cameraEntity = cameraEntities[0];
 
+  std::vector<Entity*> entities;
+  ensys->getEntities<MovementComponent>(entities);
+  printf("entities %d \n", entities.size());
   for(Entity *entity : entities) {
     MovementComponent *mc = entity->getAs<MovementComponent>();
     TransformComponent *tc = entity->getAs<TransformComponent>();
@@ -35,15 +35,26 @@ void MovementSelectorSystem::run(float dt)
         float normalizedMouseX = ic->mouseX/app->appWidth;
 
         float normalizedMouseY = (app->appHeight - ic->mouseY)/app->appHeight;
-        float ox, oy, oz, dx, dy, dz;
 
         H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
         Entity * en = Utils::sharedInstance()->getEntityForNode(node);
         if (en != nullptr) {
           TileSelectedComponent *tc = en->getAs<TileSelectedComponent>();
+          SelectedEntityComponent *sc = entity->getAs<SelectedEntityComponent>();
           if (tc != nullptr) {
             tc->selected = 1;
-
+            if (sc != nullptr) {
+              Entity *oldEntity = sc->entity;
+              if (oldEntity != nullptr) {
+                TileSelectedComponent *oldTc = oldEntity->getAs<TileSelectedComponent>();
+                if (oldTc != nullptr) {
+                  oldTc->selected = 0;
+                  printf("here? \n");
+                }
+              }
+              sc->entity = en;
+              printf("gothere?\n");
+            }
           }
         }
       }
