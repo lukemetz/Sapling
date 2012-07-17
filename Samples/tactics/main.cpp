@@ -10,16 +10,36 @@
 #include "Components/MovementComponent.h"
 #include "Components/TileSelectedComponent.h"
 #include "Components/SelectedEntityComponent.h"
+#include "Components/PlayerStateComponent.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
 #include "Systems/MovementSelectorSystem.h"
 #include "Systems/TileSelectedSystem.h"
+#include "Systems/PlayerControlSystem.h"
 
 #include <stdlib.h>
 
 static bool running;
 static double t0;
 static Application *app;
+
+Entity *createEntity()
+{
+  EntitySystem *entitySystem = EntitySystem::sharedInstance();
+  Entity *en = new Entity;
+  entitySystem->createComponent<TileObjectComponent>(en);
+  entitySystem->createComponent<UnitComponent>(en);
+  entitySystem->createComponent<TransformComponent>(en);
+  entitySystem->createComponent<MeshComponent>(en);
+  entitySystem->createComponent<AnimationTimerComponent>(en);
+  entitySystem->createComponent<MovementComponent>(en);
+  entitySystem->createComponent<InputComponent>(en);
+  entitySystem->createComponent<SelectedEntityComponent>(en);
+
+  en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
+  en->getAs<TransformComponent>()->pos = Vec3f(5,2,5);
+  return en;
+}
 
 void engineInit() {
 	EntitySystem *entitySystem = EntitySystem::sharedInstance();
@@ -80,29 +100,30 @@ void engineInit() {
     }
   }
 
-  //Throw a dude on the feild
-
-  Entity *en = new Entity;
-  entitySystem->createComponent<TileObjectComponent>(en);
-  entitySystem->createComponent<UnitComponent>(en);
-  entitySystem->createComponent<TransformComponent>(en);
-  entitySystem->createComponent<MeshComponent>(en);
-  entitySystem->createComponent<AnimationTimerComponent>(en);
-  entitySystem->createComponent<MovementComponent>(en);
-  entitySystem->createComponent<InputComponent>(en);
-  entitySystem->createComponent<TileSelectedComponent>(en);
-  entitySystem->createComponent<SelectedEntityComponent>(en);
-
-  en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
+  //Throw a dude on the field
+  Entity *en = createEntity();
   en->getAs<TileObjectComponent>()->tile = entities[5][5];
-  en->getAs<TransformComponent>()->pos = Vec3f(5,2,5);
-
   en->getAs<MovementComponent>()->tiles.push_back(entities[5][6]);
   en->getAs<MovementComponent>()->tiles.push_back(entities[5][7]);
   en->getAs<MovementComponent>()->tiles.push_back(entities[4][7]);
   en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
   en->getAs<MovementComponent>()->tiles.push_back(entities[3][6]);
   en->getAs<MovementComponent>()->tiles.push_back(entities[3][5]);
+
+  en = createEntity();
+  en->getAs<TileObjectComponent>()->tile = entities[4][5];
+  en->getAs<MovementComponent>()->tiles.push_back(entities[4][6]);
+  en->getAs<MovementComponent>()->tiles.push_back(entities[4][7]);
+  en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
+  en->getAs<MovementComponent>()->tiles.push_back(entities[3][8]);
+  en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
+  en->getAs<MovementComponent>()->tiles.push_back(entities[3][6]);
+
+  Entity * playerEntity = new Entity();
+  entitySystem->createComponent<InputComponent>(playerEntity);
+  entitySystem->createComponent<SelectedEntityComponent>(playerEntity);
+  entitySystem->createComponent<PlayerStateComponent>(playerEntity);
+
 
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();
@@ -113,6 +134,7 @@ void engineInit() {
   entitySystem->addSystem<AnimationTimerSystem>();
   entitySystem->addSystem<MovementSelectorSystem>();
   entitySystem->addSystem<TileSelectedSystem>();
+  entitySystem->addSystem<PlayerControlSystem>();
 }
 
 int main( int argc, char** argv )
