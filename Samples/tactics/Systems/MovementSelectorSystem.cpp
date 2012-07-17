@@ -23,15 +23,13 @@ void MovementSelectorSystem::run(float dt)
 
   std::vector<Entity*> entities;
   ensys->getEntities<MovementComponent>(entities);
-  printf("entities %d \n", entities.size());
   for(Entity *entity : entities) {
     MovementComponent *mc = entity->getAs<MovementComponent>();
     TransformComponent *tc = entity->getAs<TransformComponent>();
     InputComponent *ic = entity->getAs<InputComponent>();
 
     if (mc != nullptr && ic != nullptr && tc != nullptr) {
-      if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false)
-      {
+      if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false) {
         float normalizedMouseX = ic->mouseX/app->appWidth;
 
         float normalizedMouseY = (app->appHeight - ic->mouseY)/app->appHeight;
@@ -49,11 +47,9 @@ void MovementSelectorSystem::run(float dt)
                 TileSelectedComponent *oldTc = oldEntity->getAs<TileSelectedComponent>();
                 if (oldTc != nullptr) {
                   oldTc->selected = 0;
-                  printf("here? \n");
                 }
               }
               sc->entity = en;
-              printf("gothere?\n");
             }
           }
         }
