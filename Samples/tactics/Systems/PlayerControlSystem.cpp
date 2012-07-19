@@ -1,6 +1,7 @@
 #include "PlayerControlSystem.h"
 #include "Components/SelectedEntityComponent.h"
 #include "Components/TileObjectComponent.h"
+#include "Components/UnitSelectedComponent.h"
 #include <GL/glfw.h>
 #include "App.h"
 #include "Utils.h"
@@ -37,8 +38,7 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
 
     auto tileObjectComponent = pickSelectedEntity->getAs<TileObjectComponent>();
     if (nullptr != tileObjectComponent) {
-      entity->getAs<SelectedEntityComponent>()->entity = pickSelectedEntity;
-      playerStateComponent->state = kPlayerSelected;
+      selectUnit(entity, pickSelectedEntity);
       printf("Tile object selected \n");
     }
   }
@@ -48,10 +48,29 @@ void PlayerControlSystem::keyboardDeselect(Entity *entity)
 {
   InputComponent *ic = entity->getAs<InputComponent>();
   if ( ic->keys['C'] && !ic->prevKeys['C'] ) {
-    auto selectedEntityComponent = entity->getAs<SelectedEntityComponent>();
-    selectedEntityComponent->entity = nullptr;
-    auto playerStateComponent = entity->getAs<PlayerStateComponent>();
-    playerStateComponent->state = kPlayerDeselected;
+    deselectUnit(entity);
     printf("Deselected tile object\n");
   }
+}
+
+void PlayerControlSystem::selectUnit(Entity *current, Entity *selected)
+{
+  auto unitSelectedComponent = selected->getAs<UnitSelectedComponent>();
+  unitSelectedComponent->selected = true;
+  current->getAs<SelectedEntityComponent>()->entity = selected;
+  current->getAs<PlayerStateComponent>()->state = kPlayerSelected;
+}
+
+void PlayerControlSystem::deselectUnit(Entity *current)
+{
+  auto selectedEntityComponent = current->getAs<SelectedEntityComponent>();
+  auto unitSelected = selectedEntityComponent->entity->getAs<UnitSelectedComponent>();
+  if (unitSelected != nullptr) {
+    unitSelected->selected = false;
+    unitSelected->usingAbility = false;
+    selectedEntityComponent->entity = nullptr;
+  }
+
+  auto playerStateComponent = current->getAs<PlayerStateComponent>();
+  playerStateComponent->state = kPlayerDeselected;
 }

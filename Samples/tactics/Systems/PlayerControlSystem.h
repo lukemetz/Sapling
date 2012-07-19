@@ -10,4 +10,6 @@ public:
 private:
   void mouseSelectObject(Entity *entity);
   void keyboardDeselect(Entity *entity);
+  void selectUnit(Entity *current, Entity *selected);
+  void deselectUnit(Entity *current);
 };
