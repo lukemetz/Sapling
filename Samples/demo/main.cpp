@@ -3,7 +3,6 @@
 #include "Wrappers/WrapManager.h"
 #include "App.h"
 
-static bool running;
 static double t0;
 static Application *app;
 void engineInit() {

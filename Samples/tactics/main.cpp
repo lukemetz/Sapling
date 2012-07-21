@@ -20,7 +20,6 @@
 
 #include <stdlib.h>
 
-static bool running;
 static double t0;
 static Application *app;
 

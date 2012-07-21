@@ -21,7 +21,7 @@ void MovementSystem::run(float dt)
       if(at->time > mc->startTime) {
         float difference = at->time - mc->startTime;
         int currentTileIndex = static_cast<int>(difference * mc->speed);
-        if (currentTileIndex < mc->tiles.size() - 1) {
+        if (currentTileIndex < static_cast<int>(mc->tiles.size() - 1)) {
           Entity *t1 = mc->tiles[currentTileIndex];
           Entity *t2 = mc->tiles[currentTileIndex+1];
           TransformComponent *tc1 = t1->getAs<TransformComponent>();
