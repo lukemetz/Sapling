@@ -104,21 +104,11 @@ void engineInit() {
   //Throw a dude on the field
   Entity *en = createEntity();
   en->getAs<TileObjectComponent>()->tile = entities[5][5];
-  en->getAs<MovementComponent>()->tiles.push_back(entities[5][6]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[5][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[4][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][6]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][5]);
+  en->getAs<TransformComponent>()->pos = entities[5][5]->getAs<TransformComponent>()->pos;
 
   en = createEntity();
-  en->getAs<TileObjectComponent>()->tile = entities[4][5];
-  en->getAs<MovementComponent>()->tiles.push_back(entities[4][6]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[4][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][8]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][7]);
-  en->getAs<MovementComponent>()->tiles.push_back(entities[3][6]);
+  en->getAs<TileObjectComponent>()->tile = entities[2][5];
+  en->getAs<TransformComponent>()->pos = entities[2][5]->getAs<TransformComponent>()->pos;
 
   Entity * playerEntity = new Entity();
   entitySystem->createComponent<InputComponent>(playerEntity);
