@@ -1,3 +1,5 @@
+#pragma once
+
 #include <EntitySystem.h>
 
 class MovementSystem : public System
