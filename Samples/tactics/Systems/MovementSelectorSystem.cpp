@@ -1,5 +1,6 @@
 #include "MovementSelectorSystem.h"
 
+#include "Helper.h"
 #include "Components/MovementComponent.h"
 #include "Components/AnimationTimerComponent.h"
 #include "Components/TileSelectedComponent.h"
@@ -19,13 +20,8 @@ MovementSelectorSystem::MovementSelectorSystem()
 void MovementSelectorSystem::run(float dt)
 {
   Application *app = Application::sharedInstance();
-
-  std::vector<Entity*> cameraEntities;
-  ensys->getEntities<CameraComponent>(cameraEntities);
-  Entity* cameraEntity = cameraEntities[0];
-
-  std::vector<Entity*> entities;
-  ensys->getEntities<MovementComponent>(entities);
+  Entity* cameraEntity = Helper::getCamera();
+  std::vector<Entity*> entities = ensys->getEntities<MovementComponent>();
   for(Entity *entity : entities) {
     if ( !unitCanMove(entity) ) {
       continue;
