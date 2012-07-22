@@ -57,6 +57,13 @@ public:
       }
    }
 
+   template<typename T> std::vector<Entity *> getEntities()
+   {
+      std::vector<Entity *> entities;
+      getEntities<T>(entities);
+      return entities;
+   }
+
    template<typename T> T* createComponent(Entity* e)
    {
       T *t = new T();
