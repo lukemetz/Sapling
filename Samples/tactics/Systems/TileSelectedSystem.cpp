@@ -28,9 +28,9 @@ void TileSelectedSystem::selectChanged(Entity *en, int select)
     tc->scale.y = 1;
     tc->scale.z = 1;
   } else {
-    tc->scale.x = 1.2;
-    tc->scale.y = 1.2;
-    tc->scale.z = 1.2;
+    tc->scale.x = .9;
+    tc->scale.y = .9;
+    tc->scale.z = .9;
   }
 }
 
