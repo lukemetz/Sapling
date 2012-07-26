@@ -5,7 +5,7 @@
 #include <GL/glfw.h>
 #include "App.h"
 #include "Utils.h"
-
+#include "Helper.h"
 
 void PlayerControlSystem::run(float dt)
 {
@@ -70,7 +70,8 @@ void PlayerControlSystem::deselectUnit(Entity *current)
     unitSelected->usingAbility = false;
     selectedEntityComponent->entity = nullptr;
   }
-
   auto playerStateComponent = current->getAs<PlayerStateComponent>();
   playerStateComponent->state = kPlayerDeselected;
+
+  Helper::deselectAllTiles();
 }
