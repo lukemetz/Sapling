@@ -7,4 +7,6 @@ class Helper
   public:
     static Entity * getCamera();
     static Entity * getPlayerState();
+
+    static void deselectAllTiles();
 };

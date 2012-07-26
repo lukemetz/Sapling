@@ -1,6 +1,7 @@
 #include "Helper.h"
 #include <Components/components.h>
 #include "Components/PlayerStateComponent.h"
+#include "Components/TileSelectedComponent.h"
 
 Entity * Helper::getCamera()
 {
@@ -20,4 +21,12 @@ Entity * Helper::getPlayerState()
     throw;
   }
   return entities[0];
+}
+
+void Helper::deselectAllTiles()
+{
+  auto entities = EntitySystem::sharedInstance()->getEntities<TileSelectedComponent>();
+  for (Entity *entity : entities) {
+    entity->getAs<TileSelectedComponent>()->selected = false;
+  }
 }
