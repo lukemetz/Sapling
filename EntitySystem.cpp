@@ -47,6 +47,9 @@ void EntitySystem::update(float dt)
   for(it=systems.begin(); it!=systems.end(); ++it) {
     (*it)->run(dt);
   }
+  for(it=systems.begin(); it!=systems.end(); ++it) {
+    (*it)->preRun(dt);
+  }
 }
 
 System::~System()

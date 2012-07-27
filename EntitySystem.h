@@ -31,6 +31,9 @@ public:
   virtual void run(float dt)
   {
   };
+  virtual void preRun(float dt)
+  {
+  };
   virtual ~System();
 };
 
