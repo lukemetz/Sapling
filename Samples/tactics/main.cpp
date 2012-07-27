@@ -78,12 +78,12 @@ void engineInit() {
   for(int i=0; i < size; i++) {
     for(int j=0; j < size; j++){
       TileComponent *tc = entities[i][j]->getAs<TileComponent>();
-      if(j>1) {
+      if(j>0) {
         tc->neighbors.push_back(entities[i][j-1]);
       } else {
         tc->neighbors.push_back(NULL);
       }
-      if(i>1) {
+      if(i>0) {
         tc->neighbors.push_back(entities[i-1][j]);
       } else {
         tc->neighbors.push_back(NULL);

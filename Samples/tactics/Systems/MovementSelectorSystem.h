@@ -12,8 +12,11 @@ public:
   void run(float dt);
 private:
   bool unitCanMove(Entity *entity);
-  std::map<Entity *, MovementPath> getMovementLocationsAndPaths(Entity *entity);
+  std::map<Entity *, MovementPath> getMovementLocationsAndPaths(Entity *entity, Entity *onTile, MovementPath move);
   void selectPossibleLocations(Entity *entity);
+  std::map<Entity *, MovementPath> mergeEntityMovementPathMap(std::map<Entity *, MovementPath> path1, std::map<Entity *, MovementPath> path2);
+
+
 };
 
 struct MovementPath

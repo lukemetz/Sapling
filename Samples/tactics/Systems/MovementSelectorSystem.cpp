@@ -67,26 +67,47 @@ bool MovementSelectorSystem::unitCanMove(Entity *entity)
   return unitSelected->selected && !unitSelected->usingAbility;
 }
 
-std::map<Entity *, MovementPath> MovementSelectorSystem::getMovementLocationsAndPaths(Entity *entity)
+std::map<Entity *, MovementPath>
+  MovementSelectorSystem::getMovementLocationsAndPaths(Entity *entity, Entity *onTile, MovementPath move)
 {
   std::map<Entity *, MovementPath> locationToPath;
-  Entity *currentTile = entity->getAs<TileObjectComponent>()->tile;
-  std::vector<Entity *>neighbors = currentTile->getAs<TileComponent>()->neighbors;
-
-  for (Entity *tile : neighbors)
-  {
-    MovementPath movePath;
-    movePath.time = 1.0f;
-    movePath.path.push_back(currentTile);
-    movePath.path.push_back(tile);
-    locationToPath[tile] = movePath;
+  std::vector<Entity *> neighbors = onTile->getAs<TileComponent>()->neighbors;
+  move.time += 1;
+  move.path.push_back(onTile);
+  locationToPath[onTile] = move;
+  if(move.time < 3) {
+    for (Entity *tile : neighbors)
+    {
+      if (nullptr != tile) {
+        auto movementLocationPaths = getMovementLocationsAndPaths(entity, tile, move);
+        locationToPath = mergeEntityMovementPathMap(locationToPath, movementLocationPaths);
+      }
+    }
   }
   return locationToPath;
 }
 
+std::map<Entity *, MovementPath>
+  MovementSelectorSystem::mergeEntityMovementPathMap(std::map<Entity *, MovementPath> path1, std::map<Entity *, MovementPath> path2)
+{
+  auto mapIter = path2.begin();
+  for (; mapIter != path2.end(); ++mapIter) {
+    Entity *tile = mapIter->first;
+    MovementPath movePath = mapIter->second;
+    if (path1.count(tile) == 0 || path1[tile].time > movePath.time) {
+      path1[tile] = movePath;
+    }
+  }
+  return path1;
+}
+
 void MovementSelectorSystem::selectPossibleLocations(Entity *entity)
 {
-  std::map<Entity *, MovementPath> paths = getMovementLocationsAndPaths(entity);
+  Entity * onTile = entity->getAs<TileObjectComponent>()->tile;
+  MovementPath noMove;
+  noMove.time = 0;
+
+  std::map<Entity *, MovementPath> paths = getMovementLocationsAndPaths(entity, onTile, noMove);
   auto iter = paths.begin();
   for (; iter != paths.end(); ++iter) {
     Entity *finalLocation = iter->first;
