@@ -7,7 +7,7 @@
 #include "Utils.h"
 #include "Helper.h"
 
-void PlayerControlSystem::run(float dt)
+void PlayerControlSystem::preRun(float dt)
 {
   std::vector<Entity *> entities;
   EntitySystem *ensys = EntitySystem::sharedInstance();

@@ -17,6 +17,7 @@
 #include "Systems/MovementSelectorSystem.h"
 #include "Systems/TileSelectedSystem.h"
 #include "Systems/PlayerControlSystem.h"
+#include "Systems/UnitSelectedSystem.h"
 
 #include <stdlib.h>
 
@@ -121,11 +122,14 @@ void engineInit() {
   entitySystem->addSystem<InputMoverSystem>();
   entitySystem->addSystem<InputHelperSystem>();
   entitySystem->addSystem<WobbleMoverSystem>();
+
+  entitySystem->addSystem<UnitSelectedSystem>();
   entitySystem->addSystem<MovementSystem>();
   entitySystem->addSystem<AnimationTimerSystem>();
   entitySystem->addSystem<MovementSelectorSystem>();
   entitySystem->addSystem<TileSelectedSystem>();
   entitySystem->addSystem<PlayerControlSystem>();
+
 }
 
 int main( int argc, char** argv )

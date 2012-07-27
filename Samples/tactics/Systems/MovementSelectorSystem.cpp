@@ -31,7 +31,12 @@ void MovementSelectorSystem::run(float dt)
     TransformComponent *tc = entity->getAs<TransformComponent>();
     InputComponent *ic = entity->getAs<InputComponent>();
 
-    selectPossibleLocations(entity);
+    auto unitSelected = entity->getAs<UnitSelectedComponent>();
+
+    bool justStartedUsingAbility = !unitSelected->prevSelected && unitSelected->selected;
+    if ( justStartedUsingAbility ) {
+      selectPossibleLocations(entity);
+    }
 
     if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false) {
       float normalizedMouseX = ic->mouseX/app->appWidth;
