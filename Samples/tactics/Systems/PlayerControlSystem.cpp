@@ -64,7 +64,12 @@ void PlayerControlSystem::selectUnit(Entity *current, Entity *selected)
 void PlayerControlSystem::deselectUnit(Entity *current)
 {
   auto selectedEntityComponent = current->getAs<SelectedEntityComponent>();
-  auto unitSelected = selectedEntityComponent->entity->getAs<UnitSelectedComponent>();
+  Entity *selectedEntity = selectedEntityComponent->entity;
+  if (nullptr == selectedEntity) {
+    return;
+  }
+
+  auto unitSelected = selectedEntity->getAs<UnitSelectedComponent>();
   if (unitSelected != nullptr) {
     unitSelected->selected = false;
     unitSelected->usingAbility = false;
