@@ -12,10 +12,17 @@ void PlayerControlSystem::preRun(float dt)
   std::vector<Entity *> entities;
   EntitySystem *ensys = EntitySystem::sharedInstance();
   ensys->getEntities<PlayerStateComponent>(entities);
-
   for (Entity *entity : entities) {
     mouseSelectObject(entity);
     keyboardDeselect(entity);
+    auto ic = entity->getAs<InputComponent>();
+    auto psc = entity->getAs<PlayerStateComponent>();
+    if (ic->keys['P']) {
+      psc->state = kPlayerAnimating;
+    } else if(psc->state == kPlayerAnimating) {
+      psc->state = kPlayerDeselected;
+    }
+
   }
 }
 
