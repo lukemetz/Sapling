@@ -69,6 +69,13 @@ void MovementSelectorSystem::mouseSelect(Entity *entity)
       tc->selected = 1;
       Entity *oldEntity = sc->entity;
       sc->entity = en;
+
+      auto transformComponent = entity->getAs<TransformComponent>();
+      transformComponent->pos = en->getAs<TransformComponent>()->pos;
+
+      auto movementComponent = entity->getAs<MovementComponent>();
+      movementComponent->tiles = movementSelector->possibleMoves[en].path;
+      movementComponent->startTime = entity->getAs<AnimationTimerComponent>()->time;
     }
   }
 }
@@ -81,7 +88,7 @@ std::map<Entity *, MovementPath>
   move.time += 1;
   move.path.push_back(onTile);
   locationToPath[onTile] = move;
-  if(move.time < 3) {
+  if(move.time < 5) {
     for (Entity *tile : neighbors)
     {
       if (nullptr != tile) {
