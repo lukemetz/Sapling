@@ -8,7 +8,10 @@
 #include "Components/TileObjectComponent.h"
 #include "Components/SelectedEntityComponent.h"
 #include "Components/UnitSelectedComponent.h"
+#include "Components/MovementSelectorComponent.h"
 #include <Components/components.h>
+
+
 #include <App.h>
 #include "Utils.h"
 
@@ -19,17 +22,12 @@ MovementSelectorSystem::MovementSelectorSystem()
 
 void MovementSelectorSystem::run(float dt)
 {
-  Application *app = Application::sharedInstance();
-  Entity* cameraEntity = Helper::getCamera();
-  std::vector<Entity*> entities = ensys->getEntities<MovementComponent>();
+
+  std::vector<Entity*> entities = ensys->getEntities<MovementSelectorComponent>();
   for(Entity *entity : entities) {
     if ( !unitCanMove(entity) ) {
       continue;
     }
-
-    MovementComponent *mc = entity->getAs<MovementComponent>();
-    TransformComponent *tc = entity->getAs<TransformComponent>();
-    InputComponent *ic = entity->getAs<InputComponent>();
 
     auto unitSelected = entity->getAs<UnitSelectedComponent>();
 
@@ -38,30 +36,9 @@ void MovementSelectorSystem::run(float dt)
       selectPossibleLocations(entity);
     }
 
+    InputComponent *ic = entity->getAs<InputComponent>();
     if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false) {
-      float normalizedMouseX = ic->mouseX/app->appWidth;
-
-      float normalizedMouseY = (app->appHeight - ic->mouseY)/app->appHeight;
-
-      H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
-      Entity * en = Utils::sharedInstance()->getEntityForNode(node);
-      if (en != nullptr) {
-        TileSelectedComponent *tc = en->getAs<TileSelectedComponent>();
-        SelectedEntityComponent *sc = entity->getAs<SelectedEntityComponent>();
-        if (tc != nullptr) {
-          tc->selected = 1;
-          if (sc != nullptr) {
-            Entity *oldEntity = sc->entity;
-            if (oldEntity != nullptr) {
-              TileSelectedComponent *oldTc = oldEntity->getAs<TileSelectedComponent>();
-              if (oldTc != nullptr) {
-                oldTc->selected = 0;
-              }
-            }
-            sc->entity = en;
-          }
-        }
-      }
+      mouseSelect(entity);
     }
   }
 }
@@ -70,6 +47,30 @@ bool MovementSelectorSystem::unitCanMove(Entity *entity)
 {
   auto unitSelected = entity->getAs<UnitSelectedComponent>();
   return unitSelected->selected && !unitSelected->usingAbility;
+}
+
+void MovementSelectorSystem::mouseSelect(Entity *entity)
+{
+  Application *app = Application::sharedInstance();
+  Entity* cameraEntity = Helper::getCamera();
+  InputComponent *ic = entity->getAs<InputComponent>();
+  float normalizedMouseX = ic->mouseX/app->appWidth;
+  float normalizedMouseY = (app->appHeight - ic->mouseY)/app->appHeight;
+
+  H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
+  Entity * en = Utils::sharedInstance()->getEntityForNode(node);
+  if (en != nullptr) {
+    TileSelectedComponent *tc = en->getAs<TileSelectedComponent>();
+    SelectedEntityComponent *sc = entity->getAs<SelectedEntityComponent>();
+    auto movementSelector = entity->getAs<MovementSelectorComponent>();
+    //Ensure one can move to selected tile
+    if (tc != nullptr && movementSelector->possibleMoves.count(en) != 0) {
+      Helper::deselectAllTiles();
+      tc->selected = 1;
+      Entity *oldEntity = sc->entity;
+      sc->entity = en;
+    }
+  }
 }
 
 std::map<Entity *, MovementPath>
@@ -113,6 +114,7 @@ void MovementSelectorSystem::selectPossibleLocations(Entity *entity)
   noMove.time = 0;
 
   std::map<Entity *, MovementPath> paths = getMovementLocationsAndPaths(entity, onTile, noMove);
+  entity->getAs<MovementSelectorComponent>()->possibleMoves = paths;
   auto iter = paths.begin();
   for (; iter != paths.end(); ++iter) {
     Entity *finalLocation = iter->first;

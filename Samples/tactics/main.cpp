@@ -12,6 +12,7 @@
 #include "Components/SelectedEntityComponent.h"
 #include "Components/PlayerStateComponent.h"
 #include "Components/UnitSelectedComponent.h"
+#include "Components/MovementSelectorComponent.h"
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
 #include "Systems/MovementSelectorSystem.h"
@@ -37,6 +38,7 @@ Entity *createEntity()
   entitySystem->createComponent<InputComponent>(en);
   entitySystem->createComponent<SelectedEntityComponent>(en);
   entitySystem->createComponent<UnitSelectedComponent>(en);
+  entitySystem->createComponent<MovementSelectorComponent>(en);
 
   en->getAs<MeshComponent>()->path = "models/unit.scene.xml";
   en->getAs<TransformComponent>()->pos = Vec3f(5,2,5);
