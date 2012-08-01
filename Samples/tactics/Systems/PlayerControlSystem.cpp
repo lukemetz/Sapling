@@ -40,11 +40,12 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
     float normalizedMouseY = (app->appHeight - ic->mouseY)/app->appHeight;
     H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
     Entity *pickSelectedEntity = Utils::sharedInstance()->getEntityForNode(node);
-
-    auto tileObjectComponent = pickSelectedEntity->getAs<TileObjectComponent>();
-    if (nullptr != tileObjectComponent) {
-      selectUnit(entity, pickSelectedEntity);
-      printf("Tile object selected \n");
+    if (nullptr != pickSelectedEntity) {
+      auto tileObjectComponent = pickSelectedEntity->getAs<TileObjectComponent>();
+      if (nullptr != tileObjectComponent) {
+        selectUnit(entity, pickSelectedEntity);
+        printf("Tile object selected \n");
+      }
     }
   }
 }
