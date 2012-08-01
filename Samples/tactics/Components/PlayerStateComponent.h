@@ -11,5 +11,7 @@ enum PlayerStates
 struct PlayerStateComponent : public Component
 {
   int state;
+  float timePerTurn;
+  float turnStartTime;
   PlayerStateComponent();
 };

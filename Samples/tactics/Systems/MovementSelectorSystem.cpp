@@ -10,7 +10,7 @@
 #include "Components/UnitSelectedComponent.h"
 #include "Components/MovementSelectorComponent.h"
 #include <Components/components.h>
-
+#include "Components/PlayerStateComponent.h"
 
 #include <App.h>
 #include "Utils.h"
@@ -67,7 +67,6 @@ void MovementSelectorSystem::mouseSelect(Entity *entity)
     if (tc != nullptr && movementSelector->possibleMoves.count(en) != 0) {
       Helper::deselectAllTiles();
       tc->selected = 1;
-      Entity *oldEntity = sc->entity;
       sc->entity = en;
 
       auto transformComponent = entity->getAs<TransformComponent>();
@@ -85,10 +84,10 @@ std::map<Entity *, MovementPath>
 {
   std::map<Entity *, MovementPath> locationToPath;
   std::vector<Entity *> neighbors = onTile->getAs<TileComponent>()->neighbors;
-  move.time += 1;
+  move.time += 1.0f/entity->getAs<MovementComponent>()->speed;
   move.path.push_back(onTile);
   locationToPath[onTile] = move;
-  if(move.time < 5) {
+  if(move.time < Helper::getPlayerState()->getAs<PlayerStateComponent>()->timePerTurn) {
     for (Entity *tile : neighbors)
     {
       if (nullptr != tile) {

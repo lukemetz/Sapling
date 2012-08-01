@@ -15,14 +15,13 @@ void PlayerControlSystem::preRun(float dt)
   for (Entity *entity : entities) {
     mouseSelectObject(entity);
     keyboardDeselect(entity);
+
     auto ic = entity->getAs<InputComponent>();
     auto psc = entity->getAs<PlayerStateComponent>();
+
     if (ic->keys['P']) {
       psc->state = kPlayerAnimating;
-    } else if(psc->state == kPlayerAnimating) {
-      psc->state = kPlayerDeselected;
     }
-
   }
 }
 
@@ -35,7 +34,6 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
 
   InputComponent *ic = entity->getAs<InputComponent>();
   if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false) {
-    PlayerStateComponent *playerStateComponent = entity->getAs<PlayerStateComponent>();
 
     Application *app = Application::sharedInstance();
     float normalizedMouseX = ic->mouseX/app->appWidth;
