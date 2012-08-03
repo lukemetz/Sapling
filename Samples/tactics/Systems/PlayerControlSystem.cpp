@@ -18,8 +18,7 @@ void PlayerControlSystem::preRun(float dt)
 
     auto ic = entity->getAs<InputComponent>();
     auto psc = entity->getAs<PlayerStateComponent>();
-
-    if (ic->keys['P']) {
+    if (ic->keys['P'] && !ic->prevKeys['P']) {
       psc->state = kPlayerAnimating;
     }
   }

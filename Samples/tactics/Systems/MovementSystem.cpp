@@ -3,6 +3,7 @@
 #include "Components/MovementComponent.h"
 #include "Components/AnimationTimerComponent.h"
 #include <Components/components.h>
+#include "Components/TileObjectComponent.h"
 
 MovementSystem::MovementSystem()
 {
@@ -22,6 +23,7 @@ void MovementSystem::run(float dt)
         float difference = at->time - mc->startTime;
         int currentTileIndex = static_cast<int>(difference * mc->speed);
         if (currentTileIndex < static_cast<int>(mc->tiles.size() - 1)) {
+          mc->hasEndedRunning = false;
           Entity *t1 = mc->tiles[currentTileIndex];
           Entity *t2 = mc->tiles[currentTileIndex+1];
           TransformComponent *tc1 = t1->getAs<TransformComponent>();
@@ -30,6 +32,13 @@ void MovementSystem::run(float dt)
           float percentBetween = secondsBetween*mc->speed;
           Vec3f newPos = tc1->pos*(1-percentBetween) + tc2->pos*percentBetween;
           tc->pos = newPos;
+        } else if(mc->hasEndedRunning == false) {
+          mc->hasEndedRunning = true;
+          currentTileIndex = static_cast<int>(mc->tiles.size()-1);
+          if (currentTileIndex > 0) {
+            Entity * onTile = mc->tiles[currentTileIndex];
+            entity->getAs<TileObjectComponent>()->tile = onTile;
+          }
         }
       }
     }
