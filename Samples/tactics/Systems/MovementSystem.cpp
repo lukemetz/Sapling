@@ -1,9 +1,12 @@
+#include <Components/components.h>
+
 #include "MovementSystem.h"
 
 #include "Components/MovementComponent.h"
 #include "Components/AnimationTimerComponent.h"
-#include <Components/components.h>
 #include "Components/TileObjectComponent.h"
+#include "Helper.h"
+#include "Components/PlayerStateComponent.h"
 
 MovementSystem::MovementSystem()
 {
@@ -19,7 +22,8 @@ void MovementSystem::run(float dt)
     AnimationTimerComponent *at = entity->getAs<AnimationTimerComponent>();
     TransformComponent *tc = entity->getAs<TransformComponent>();
     if (mc != NULL && at != NULL && tc != NULL) {
-      if(at->time > mc->startTime) {
+
+      if (Helper::getPlayerState()->getAs<PlayerStateComponent>()->state == kPlayerAnimating) {
         float difference = at->time - mc->startTime;
         int currentTileIndex = static_cast<int>(difference * mc->speed);
         if (currentTileIndex < static_cast<int>(mc->tiles.size() - 1)) {

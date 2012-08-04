@@ -25,9 +25,10 @@ void AnimationTimerSystem::run(float dt)
     if(playerState->state == kPlayerAnimating &&
         time - playerState->turnStartTime > playerState->timePerTurn ) {
       int turns = static_cast<int>(playerState->turnStartTime / playerState->timePerTurn);
+      turns += 1;
       playerState->turnStartTime = turns * playerState->timePerTurn;
       playerState->state = kPlayerDeselected;
-      printf("Turn animation ended \n");
+      printf("Turn animation ended on turn %d, with start %f \n", turns, playerState->turnStartTime);
     }
   }
 }
