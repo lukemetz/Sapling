@@ -30,6 +30,16 @@ InputComponent::InputComponent()
 	mouseY = 0;
 }
 
+bool InputComponent::keyJustPressed(char key)
+{
+  return keys[static_cast<int>(key)] && !prevKeys[static_cast<int>(key)];
+}
+
+bool InputComponent::mouseJustPressed(int button)
+{
+  return mouseButtons[button] && !prevMouseButtons[button];
+}
+
 LightComponent::LightComponent()
 {
   node = h3dAddLightNode(H3DRootNode, "", 0, "LIGHTING", "SHADOWMAP");

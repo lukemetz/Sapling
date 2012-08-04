@@ -18,7 +18,7 @@ void PlayerControlSystem::preRun(float dt)
 
     auto ic = entity->getAs<InputComponent>();
     auto psc = entity->getAs<PlayerStateComponent>();
-    if (ic->keys['P'] && !ic->prevKeys['P']) {
+    if (ic->keyJustPressed('P')) {
       psc->state = kPlayerAnimating;
     }
   }
@@ -32,7 +32,7 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
   Entity* cameraEntity = cameraEntities[0];
 
   InputComponent *ic = entity->getAs<InputComponent>();
-  if (ic->mouseButtons[0] == true && ic->prevMouseButtons[0] == false) {
+  if (ic->mouseJustPressed(0)) {
 
     Application *app = Application::sharedInstance();
     float normalizedMouseX = ic->mouseX/app->appWidth;
@@ -52,7 +52,7 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
 void PlayerControlSystem::keyboardDeselect(Entity *entity)
 {
   InputComponent *ic = entity->getAs<InputComponent>();
-  if ( ic->keys['C'] && !ic->prevKeys['C'] ) {
+  if (ic->keyJustPressed('C')) {
     deselectUnit(entity);
     printf("Deselected tile object\n");
   }

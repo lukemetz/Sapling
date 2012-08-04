@@ -74,8 +74,7 @@ void MovementSelectorSystem::mouseSelect(Entity *entity)
 
       auto movementComponent = entity->getAs<MovementComponent>();
       movementComponent->tiles = movementSelector->possibleMoves[en].path;
-      movementComponent->startTime = entity->getAs<AnimationTimerComponent>()->time;
-
+      movementComponent->startTime = Helper::getPlayerState()->getAs<PlayerStateComponent>()->turnStartTime;
       entity->getAs<UnitSelectedComponent>()->selected = false;
     }
   }

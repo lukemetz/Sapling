@@ -10,8 +10,7 @@ AnimationTimerSystem::AnimationTimerSystem()
 
 void AnimationTimerSystem::run(float dt)
 {
-  std::vector<Entity*> entities;
-  ensys->getEntities<AnimationTimerComponent>(entities);
+  auto entities = ensys->getEntities<AnimationTimerComponent>();
 
   auto playerState = Helper::getPlayerState()->getAs<PlayerStateComponent>();
 

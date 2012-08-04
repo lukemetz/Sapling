@@ -37,12 +37,16 @@ struct InputComponent : public Component
 {
 	bool* keys;
 	bool* prevKeys;
+
 	float mouseX;
 	float mouseY;
 	float prevMouseX;
 	float prevMouseY;
   bool* mouseButtons;
   bool* prevMouseButtons;
+
+  bool mouseJustPressed(int key);
+  bool keyJustPressed(char key);
   InputComponent();
 };
 
