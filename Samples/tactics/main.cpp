@@ -14,6 +14,7 @@
 #include "Components/UnitSelectedComponent.h"
 #include "Components/MovementSelectorComponent.h"
 #include "Components/PlayerControlledComponent.h"
+#include "Components/ComputerControlledComponent.h"
 
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
@@ -21,6 +22,7 @@
 #include "Systems/TileSelectedSystem.h"
 #include "Systems/PlayerControlSystem.h"
 #include "Systems/UnitSelectedSystem.h"
+#include "Systems/ComputerMovementSystem.h"
 
 #include <stdlib.h>
 
@@ -120,6 +122,7 @@ void engineInit() {
   en = createEntity();
   en->getAs<TileObjectComponent>()->tile = entities[2][5];
   en->getAs<TransformComponent>()->pos = entities[2][5]->getAs<TransformComponent>()->pos;
+  entitySystem->createComponent<ComputerControlledComponent>(en);
 
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();
@@ -133,7 +136,7 @@ void engineInit() {
   entitySystem->addSystem<MovementSelectorSystem>();
   entitySystem->addSystem<TileSelectedSystem>();
   entitySystem->addSystem<PlayerControlSystem>();
-
+  entitySystem->addSystem<ComputerMovementSystem>();
 }
 
 int main( int argc, char** argv )
