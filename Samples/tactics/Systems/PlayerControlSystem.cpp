@@ -2,6 +2,8 @@
 #include "Components/SelectedEntityComponent.h"
 #include "Components/TileObjectComponent.h"
 #include "Components/UnitSelectedComponent.h"
+#include "Components/UnitComponent.h"
+
 #include <GL/glfw.h>
 #include "App.h"
 #include "Utils.h"
@@ -40,10 +42,11 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
     H3DNode node = h3dutPickNode(cameraEntity->getAs<CameraComponent>()->node, normalizedMouseX, normalizedMouseY);
     Entity *pickSelectedEntity = Utils::sharedInstance()->getEntityForNode(node);
     if (nullptr != pickSelectedEntity) {
-      auto tileObjectComponent = pickSelectedEntity->getAs<TileObjectComponent>();
-      if (nullptr != tileObjectComponent) {
-        selectUnit(entity, pickSelectedEntity);
-        printf("Tile object selected \n");
+      auto unitComponent = pickSelectedEntity->getAs<UnitComponent>();
+      if (nullptr != unitComponent) {
+        if (unitComponent->owner == entity) {
+          selectUnit(entity, pickSelectedEntity);
+        }
       }
     }
   }

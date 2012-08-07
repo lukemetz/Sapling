@@ -6,6 +6,7 @@ UnitComponent::UnitComponent()
   resists.resize(2, 0);
   resists[kResistArmor] = 10.f;
   resists[kResistMagicResist] = 5.0f;
+  owner = nullptr;
 }
 
 void UnitComponent::takeDamage(Resist type, float amount)

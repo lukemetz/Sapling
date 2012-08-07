@@ -104,20 +104,20 @@ void engineInit() {
     }
   }
 
-  //Throw a dude on the field
-  Entity *en = createEntity();
-  en->getAs<TileObjectComponent>()->tile = entities[5][5];
-  en->getAs<TransformComponent>()->pos = entities[5][5]->getAs<TransformComponent>()->pos;
-
-  en = createEntity();
-  en->getAs<TileObjectComponent>()->tile = entities[2][5];
-  en->getAs<TransformComponent>()->pos = entities[2][5]->getAs<TransformComponent>()->pos;
-
   Entity * playerEntity = new Entity();
   entitySystem->createComponent<InputComponent>(playerEntity);
   entitySystem->createComponent<SelectedEntityComponent>(playerEntity);
   entitySystem->createComponent<PlayerStateComponent>(playerEntity);
 
+  //Throw a dude on the field
+  Entity *en = createEntity();
+  en->getAs<TileObjectComponent>()->tile = entities[5][5];
+  en->getAs<TransformComponent>()->pos = entities[5][5]->getAs<TransformComponent>()->pos;
+  en->getAs<UnitComponent>()->owner = playerEntity;
+
+  en = createEntity();
+  en->getAs<TileObjectComponent>()->tile = entities[2][5];
+  en->getAs<TransformComponent>()->pos = entities[2][5]->getAs<TransformComponent>()->pos;
 
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();
