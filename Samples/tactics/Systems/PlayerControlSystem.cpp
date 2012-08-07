@@ -3,6 +3,7 @@
 #include "Components/TileObjectComponent.h"
 #include "Components/UnitSelectedComponent.h"
 #include "Components/UnitComponent.h"
+#include "Components/PlayerControlledComponent.h"
 
 #include <GL/glfw.h>
 #include "App.h"
@@ -44,7 +45,7 @@ void PlayerControlSystem::mouseSelectObject(Entity *entity)
     if (nullptr != pickSelectedEntity) {
       auto unitComponent = pickSelectedEntity->getAs<UnitComponent>();
       if (nullptr != unitComponent) {
-        if (unitComponent->owner == entity) {
+        if (nullptr != pickSelectedEntity->getAs<PlayerControlledComponent>()) {
           selectUnit(entity, pickSelectedEntity);
         }
       }

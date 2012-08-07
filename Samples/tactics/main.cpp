@@ -13,6 +13,8 @@
 #include "Components/PlayerStateComponent.h"
 #include "Components/UnitSelectedComponent.h"
 #include "Components/MovementSelectorComponent.h"
+#include "Components/PlayerControlledComponent.h"
+
 #include "Systems/MovementSystem.h"
 #include "Systems/AnimationTimerSystem.h"
 #include "Systems/MovementSelectorSystem.h"
@@ -113,7 +115,7 @@ void engineInit() {
   Entity *en = createEntity();
   en->getAs<TileObjectComponent>()->tile = entities[5][5];
   en->getAs<TransformComponent>()->pos = entities[5][5]->getAs<TransformComponent>()->pos;
-  en->getAs<UnitComponent>()->owner = playerEntity;
+  entitySystem->createComponent<PlayerControlledComponent>(en);
 
   en = createEntity();
   en->getAs<TileObjectComponent>()->tile = entities[2][5];
