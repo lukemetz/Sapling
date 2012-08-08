@@ -5,6 +5,9 @@
 #include "Components/TileObjectComponent.h"
 #include "Components/TileComponent.h"
 
+#include "Helper.h"
+#include "Components/PlayerStateComponent.h"
+
 void ComputerMovementSystem::run(float dt)
 {
   auto entities = EntitySystem::sharedInstance()->getEntities<ComputerControlledComponent>();
@@ -14,10 +17,17 @@ void ComputerMovementSystem::run(float dt)
 
     auto movementComponent = entity->getAs<MovementComponent>();
     if (nullptr != movementComponent) {
-      Entity *tile = entity->getAs<TileObjectComponent>()->tile;
-      movementComponent->tiles.push_back(tile);
-      movementComponent->tiles.push_back(tile->getAs<TileComponent>()->neighbors[0]);
-
+      auto computerControlled = entity->getAs<ComputerControlledComponent>();
+      auto playerState = Helper::getPlayerState()->getAs<PlayerStateComponent>();
+      if (playerState->turnStartTime > computerControlled->prevTurnStartTime) {
+        computerControlled->prevTurnStartTime = playerState->turnStartTime;
+        Entity *tile = entity->getAs<TileObjectComponent>()->tile;
+        printf("Ai preforming movement \n");
+        movementComponent->tiles.clear();
+        movementComponent->startTime = playerState->turnStartTime;
+        movementComponent->tiles.push_back(tile);
+        movementComponent->tiles.push_back(tile->getAs<TileComponent>()->neighbors[0]);
+      }
     }
   }
 }

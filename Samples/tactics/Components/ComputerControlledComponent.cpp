@@ -2,5 +2,5 @@
 
 ComputerControlledComponent::ComputerControlledComponent()
 {
-
+  prevTurnStartTime = -1;
 };

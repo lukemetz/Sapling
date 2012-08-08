@@ -3,5 +3,6 @@
 
 struct ComputerControlledComponent : public Component
 {
+  float prevTurnStartTime;
   ComputerControlledComponent();
 };
