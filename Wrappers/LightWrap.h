@@ -3,11 +3,13 @@
 #include "../Components/components.h"
 #include <jansson.h>
 
-class InputComponentWrap
+using namespace Component;
+
+class LightWrap
 {
   public:
-    InputComponent* component;
-    InputComponentWrap(InputComponent *com);
+    Light* component;
+    LightWrap(Light *com);
 
     void set(json_t *obj);
 };

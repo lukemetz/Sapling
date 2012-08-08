@@ -1,12 +1,12 @@
 //This file was automatically generated
 #include <string.h>
-#include "LightComponentWrap.h"
-LightComponentWrap::LightComponentWrap(LightComponent *com)
+#include "LightWrap.h"
+LightWrap::LightWrap(Light *com)
 {
   component=com;
 }
 
-void LightComponentWrap::set(json_t *obj)
+void LightWrap::set(json_t *obj)
 {
   const char *key;
   json_t *value;

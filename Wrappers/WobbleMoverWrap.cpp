@@ -1,12 +1,12 @@
 //This file was automatically generated
 #include <string.h>
-#include "WobbleMoverComponentWrap.h"
-WobbleMoverComponentWrap::WobbleMoverComponentWrap(WobbleMoverComponent *com)
+#include "WobbleMoverWrap.h"
+WobbleMoverWrap::WobbleMoverWrap(WobbleMover *com)
 {
   component=com;
 }
 
-void WobbleMoverComponentWrap::set(json_t *obj)
+void WobbleMoverWrap::set(json_t *obj)
 {
   const char *key;
   json_t *value;

@@ -1,12 +1,12 @@
 //This file was automatically generated
 #include <string.h>
-#include "InputMoverComponentWrap.h"
-InputMoverComponentWrap::InputMoverComponentWrap(InputMoverComponent *com)
+#include "InputMoverWrap.h"
+InputMoverWrap::InputMoverWrap(InputMover *com)
 {
   component=com;
 }
 
-void InputMoverComponentWrap::set(json_t *obj)
+void InputMoverWrap::set(json_t *obj)
 {
   const char *key;
   json_t *value;

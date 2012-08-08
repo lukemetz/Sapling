@@ -1,16 +1,18 @@
 #include "InputMoverSystem.h"
 
+using namespace Component;
+
 void InputMoverSystem::run(float dt)
 {
 	std::vector<Entity*> entities;
-	ensys->getEntities<InputMoverComponent>(entities);
-	InputMoverComponent *imc;
-	TransformComponent * tc;
-	InputComponent *ic;
+	ensys->getEntities<InputMover>(entities);
+	InputMover *imc;
+	Transform * tc;
+	Input *ic;
 	for(Entity* entity : entities) {
-		imc = entity->getAs<InputMoverComponent>();
-		tc = entity->getAs<TransformComponent>();
-		ic = entity->getAs<InputComponent>();
+		imc = entity->getAs<InputMover>();
+		tc = entity->getAs<Transform>();
+		ic = entity->getAs<Input>();
 
 		float curVel = imc->speed;
 

@@ -6,17 +6,19 @@
 #include "../utMath.h"
 #include "../App.h"
 
-struct InputMoverComponent : public Component
-{
-	float speed;
-	InputMoverComponent();
-};
+namespace Component {
+  struct InputMover : public Component
+  {
+    float speed;
+    InputMover();
+  };
 
-struct WobbleMoverComponent : public Component
-{
-  float period;
-  Vec3f displacement;
-  Vec3f offset;
-  float time;
-  WobbleMoverComponent();
+  struct WobbleMover : public Component
+  {
+    float period;
+    Vec3f displacement;
+    Vec3f offset;
+    float time;
+    WobbleMover();
+  };
 };

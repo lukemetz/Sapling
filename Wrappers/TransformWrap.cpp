@@ -1,12 +1,12 @@
 //This file was automatically generated
 #include <string.h>
-#include "TransformComponentWrap.h"
-TransformComponentWrap::TransformComponentWrap(TransformComponent *com)
+#include "TransformWrap.h"
+TransformWrap::TransformWrap(Transform *com)
 {
   component=com;
 }
 
-void TransformComponentWrap::set(json_t *obj)
+void TransformWrap::set(json_t *obj)
 {
   const char *key;
   json_t *value;

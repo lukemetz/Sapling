@@ -3,11 +3,13 @@
 #include "../Components/components.h"
 #include <jansson.h>
 
-class TransformComponentWrap
+using namespace Component;
+
+class MeshWrap
 {
   public:
-    TransformComponent* component;
-    TransformComponentWrap(TransformComponent *com);
+    Mesh* component;
+    MeshWrap(Mesh *com);
 
     void set(json_t *obj);
 };

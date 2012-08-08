@@ -3,11 +3,13 @@
 #include "../Components/components.h"
 #include <jansson.h>
 
-class MeshComponentWrap
+using namespace Component;
+
+class CameraWrap
 {
   public:
-    MeshComponent* component;
-    MeshComponentWrap(MeshComponent *com);
+    Camera* component;
+    CameraWrap(Camera *com);
 
     void set(json_t *obj);
 };

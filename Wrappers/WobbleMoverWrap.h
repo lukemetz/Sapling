@@ -3,11 +3,13 @@
 #include "../Components/userComponents.h"
 #include <jansson.h>
 
-class WobbleMoverComponentWrap
+using namespace Component;
+
+class WobbleMoverWrap
 {
   public:
-    WobbleMoverComponent* component;
-    WobbleMoverComponentWrap(WobbleMoverComponent *com);
+    WobbleMover* component;
+    WobbleMoverWrap(WobbleMover *com);
 
     void set(json_t *obj);
 };

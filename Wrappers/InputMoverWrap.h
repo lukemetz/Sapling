@@ -3,11 +3,13 @@
 #include "../Components/userComponents.h"
 #include <jansson.h>
 
-class InputMoverComponentWrap
+using namespace Component;
+
+class InputMoverWrap
 {
   public:
-    InputMoverComponent* component;
-    InputMoverComponentWrap(InputMoverComponent *com);
+    InputMover* component;
+    InputMoverWrap(InputMover *com);
 
     void set(json_t *obj);
 };

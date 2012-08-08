@@ -1,11 +1,13 @@
 #include "userComponents.h"
 
-InputMoverComponent::InputMoverComponent()
+using namespace Component;
+
+InputMover::InputMover()
 {
 	speed = 2;
 }
 
-WobbleMoverComponent::WobbleMoverComponent()
+WobbleMover::WobbleMover()
 {
   period = 1;
   displacement = Vec3f(0,0,20);

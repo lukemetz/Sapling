@@ -1,5 +1,5 @@
 {
-  "TransformComponent" : 
+  "Transform" : 
     {
       "params" : 
         {
@@ -10,19 +10,19 @@
         "header": "components.h"
     },
 
-    "InputComponent":
+    "Input":
     {
       "params" : {},
       "header": "components.h"
     },
 
-    "CameraComponent":
+    "Camera":
     {
       "params" : {},
       "header": "components.h"
     },
 
-    "LightComponent":
+    "Light":
     {
       "params" :
       {
@@ -33,7 +33,7 @@
       "header" : "components.h"
     },
 
-    "MeshComponent":
+    "Mesh":
     {
       "params" : 
       {
@@ -42,7 +42,7 @@
       "header" : "components.h"
     },
 
-    "InputMoverComponent":
+    "InputMover":
     {
       "params" :
       {
@@ -51,7 +51,7 @@
       "header" : "userComponents.h"
     },
 
-    "WobbleMoverComponent" :
+    "WobbleMover" :
     {
       "params" : 
       {

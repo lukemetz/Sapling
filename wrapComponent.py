@@ -14,6 +14,8 @@ def wrapComponent(component):
 #include "../Components/%(header)s\"
 #include <jansson.h>
 
+using namespace Component;
+
 class %(componentName)sWrap
 {
   public:

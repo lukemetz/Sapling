@@ -34,7 +34,7 @@ EntitySystem *EntitySystem::sharedInstance()
 
 void EntitySystem::removeAllComponents(Entity *e)
 {
-  std::map<TypeNameKey, Component*>::iterator it;
+  std::map<TypeNameKey, Component::Component*>::iterator it;
 
   for(it = e->mComponents.begin(); it != e->mComponents.end(); ++it) {
     mComponentStore.erase(it->first);

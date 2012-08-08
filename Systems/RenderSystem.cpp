@@ -1,22 +1,24 @@
 #include "RenderSystem.h"
 #include "Utils.h"
 
+using namespace Component;
+
 RenderSystem::RenderSystem()
 {
   ensys = EntitySystem::sharedInstance();
 }
 
-CameraComponent* RenderSystem::runCamera(float dt)
+Camera* RenderSystem::runCamera(float dt)
 {
 	std::vector<Entity*> entities;
-	ensys->getEntities<CameraComponent>(entities);
+	ensys->getEntities<Camera>(entities);
 
 	if(entities.size() != 1) {
 		printf("ERROR in RenderSystem, More than one camera \n");
 	}
 
-  CameraComponent* cc = entities[0]->getAs<CameraComponent>();
-	TransformComponent* tc = entities[0]->getAs<TransformComponent>();
+  Camera* cc = entities[0]->getAs<Camera>();
+	Transform* tc = entities[0]->getAs<Transform>();
 
 	h3dSetNodeTransform( cc->node, tc->pos.x,   tc->pos.y,   tc->pos.z,
                                  tc->rot.x,   tc->rot.y,   tc->rot.z,
@@ -30,11 +32,11 @@ CameraComponent* RenderSystem::runCamera(float dt)
 void RenderSystem::runMeshes(float dt)
 {
 	std::vector<Entity*> meshes;
-	ensys->getEntities<MeshComponent>(meshes);
+	ensys->getEntities<Mesh>(meshes);
 
-  TransformComponent* tc;
+  Transform* tc;
   for(Entity * entity : meshes) {
-    MeshComponent *mc = entity->getAs<MeshComponent>();
+    Mesh *mc = entity->getAs<Mesh>();
     if (mc->oldPath.compare(mc->path) != 0) {
       mc->res = h3dAddResource(H3DResTypes::SceneGraph, mc->path.c_str(), 0);
       std::string s = Application::appPath+"Content";
@@ -46,9 +48,9 @@ void RenderSystem::runMeshes(float dt)
       Utils::sharedInstance()->addNodeEntity(mc->node, entity);
     }
 
-		tc = entity->getAs<TransformComponent>();
+		tc = entity->getAs<Transform>();
     if (!tc)
-      printf("RenderSystem requires a TransformComponent on the entity that has a CameraComponent \n");
+      printf("RenderSystem requires a Transform Component on the entity that has a Camera Component \n");
 
 		h3dSetNodeTransform( mc->node, tc->pos.x,   tc->pos.y,   tc->pos.z,
 	    		          						   tc->rot.x,   tc->rot.y,   tc->rot.z,
@@ -59,13 +61,13 @@ void RenderSystem::runMeshes(float dt)
 
 void RenderSystem::runLights(float dt)
 {
-  LightComponent *lc;
-  TransformComponent* tc;
+  Light *lc;
+  Transform* tc;
   std::vector<Entity*> lights;
-  ensys->getEntities<LightComponent>(lights);
+  ensys->getEntities<Light>(lights);
   for(Entity *entity : lights) {
-    lc = entity->getAs<LightComponent>();
-    tc = entity->getAs<TransformComponent>();
+    lc = entity->getAs<Light>();
+    tc = entity->getAs<Transform>();
     h3dSetNodeTransform( lc->node,  tc->pos.x,   tc->pos.y,   tc->pos.z,
                                     tc->rot.x,   tc->rot.y,   tc->rot.z,
                                     tc->scale.x, tc->scale.y, tc->scale.z );
@@ -80,7 +82,7 @@ void RenderSystem::runLights(float dt)
 
 void RenderSystem::run(float dt)
 {
-  CameraComponent *cc = runCamera(dt);
+  Camera *cc = runCamera(dt);
   runMeshes(dt);
   runLights(dt);
 

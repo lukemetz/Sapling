@@ -1,12 +1,12 @@
 //This file was automatically generated
 #include <string.h>
-#include "InputComponentWrap.h"
-InputComponentWrap::InputComponentWrap(InputComponent *com)
+#include "CameraWrap.h"
+CameraWrap::CameraWrap(Camera *com)
 {
   component=com;
 }
 
-void InputComponentWrap::set(json_t *obj)
+void CameraWrap::set(json_t *obj)
 {
   const char *key;
   json_t *value;

@@ -1,15 +1,15 @@
 //This file is auto generated
 #include "WrapManager.h"
 #include <string.h>
-#include "Components/components.h"
 #include "Components/userComponents.h"
-#include "Wrappers/CameraComponentWrap.h"
-#include "Wrappers/TransformComponentWrap.h"
-#include "Wrappers/LightComponentWrap.h"
-#include "Wrappers/WobbleMoverComponentWrap.h"
-#include "Wrappers/InputComponentWrap.h"
-#include "Wrappers/MeshComponentWrap.h"
-#include "Wrappers/InputMoverComponentWrap.h"
+#include "Components/components.h"
+#include "Wrappers/WobbleMoverWrap.h"
+#include "Wrappers/LightWrap.h"
+#include "Wrappers/TransformWrap.h"
+#include "Wrappers/MeshWrap.h"
+#include "Wrappers/CameraWrap.h"
+#include "Wrappers/InputWrap.h"
+#include "Wrappers/InputMoverWrap.h"
 WrapManager::WrapManager()
 {
 }
@@ -20,46 +20,46 @@ Entity* WrapManager::loadEntity(EntitySystem *ensys, json_t *obj)
   json_t *val;
   Entity *entity = new Entity();
   json_object_foreach(obj, key, val) {
-    if (strcmp(key,"CameraComponent") == 0) {
-      CameraComponent *c;
-      c = ensys->createComponent<CameraComponent>(entity);
-      CameraComponentWrap *cwrap = new CameraComponentWrap(c);
+    if (strcmp(key,"WobbleMover") == 0) {
+      WobbleMover *c;
+      c = ensys->createComponent<WobbleMover>(entity);
+      WobbleMoverWrap *cwrap = new WobbleMoverWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"TransformComponent") == 0) {
-      TransformComponent *c;
-      c = ensys->createComponent<TransformComponent>(entity);
-      TransformComponentWrap *cwrap = new TransformComponentWrap(c);
+    if (strcmp(key,"Light") == 0) {
+      Light *c;
+      c = ensys->createComponent<Light>(entity);
+      LightWrap *cwrap = new LightWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"LightComponent") == 0) {
-      LightComponent *c;
-      c = ensys->createComponent<LightComponent>(entity);
-      LightComponentWrap *cwrap = new LightComponentWrap(c);
+    if (strcmp(key,"Transform") == 0) {
+      Transform *c;
+      c = ensys->createComponent<Transform>(entity);
+      TransformWrap *cwrap = new TransformWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"WobbleMoverComponent") == 0) {
-      WobbleMoverComponent *c;
-      c = ensys->createComponent<WobbleMoverComponent>(entity);
-      WobbleMoverComponentWrap *cwrap = new WobbleMoverComponentWrap(c);
+    if (strcmp(key,"Mesh") == 0) {
+      Mesh *c;
+      c = ensys->createComponent<Mesh>(entity);
+      MeshWrap *cwrap = new MeshWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"InputComponent") == 0) {
-      InputComponent *c;
-      c = ensys->createComponent<InputComponent>(entity);
-      InputComponentWrap *cwrap = new InputComponentWrap(c);
+    if (strcmp(key,"Camera") == 0) {
+      Camera *c;
+      c = ensys->createComponent<Camera>(entity);
+      CameraWrap *cwrap = new CameraWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"MeshComponent") == 0) {
-      MeshComponent *c;
-      c = ensys->createComponent<MeshComponent>(entity);
-      MeshComponentWrap *cwrap = new MeshComponentWrap(c);
+    if (strcmp(key,"Input") == 0) {
+      Input *c;
+      c = ensys->createComponent<Input>(entity);
+      InputWrap *cwrap = new InputWrap(c);
       cwrap->set(val);
     }
-    if (strcmp(key,"InputMoverComponent") == 0) {
-      InputMoverComponent *c;
-      c = ensys->createComponent<InputMoverComponent>(entity);
-      InputMoverComponentWrap *cwrap = new InputMoverComponentWrap(c);
+    if (strcmp(key,"InputMover") == 0) {
+      InputMover *c;
+      c = ensys->createComponent<InputMover>(entity);
+      InputMoverWrap *cwrap = new InputMoverWrap(c);
       cwrap->set(val);
     }
  

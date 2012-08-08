@@ -6,56 +6,61 @@
 #include "../utMath.h"
 #include "../App.h"
 
-struct CameraComponent : public Component
+namespace Component
 {
-	CameraComponent();
 
-	H3DNode node;
-	H3DRes pipeline;
-};
+  struct Camera : public Component
+  {
+    Camera();
 
-struct TransformComponent : public Component
-{
-	Vec3f pos;
-	Vec3f scale;
-	Vec3f rot;
-	TransformComponent();
-};
+    H3DNode node;
+    H3DRes pipeline;
+  };
 
-struct MeshComponent : public Component
-{
-  std::string path;
-  MeshComponent();
+  struct Transform : public Component
+  {
+    Vec3f pos;
+    Vec3f scale;
+    Vec3f rot;
+    Transform();
+  };
 
-  H3DNode node;
-  H3DRes res;
-  std::string oldPath;
-  void loadResources();
-};
+  struct Mesh : public Component
+  {
+    std::string path;
+    Mesh();
 
-struct InputComponent : public Component
-{
-	bool* keys;
-	bool* prevKeys;
+    H3DNode node;
+    H3DRes res;
+    std::string oldPath;
+    void loadResources();
+  };
 
-	float mouseX;
-	float mouseY;
-	float prevMouseX;
-	float prevMouseY;
-  bool* mouseButtons;
-  bool* prevMouseButtons;
+  struct Input : public Component
+  {
+    bool* keys;
+    bool* prevKeys;
 
-  bool mouseJustPressed(int key);
-  bool keyJustPressed(char key);
-  InputComponent();
-};
+    float mouseX;
+    float mouseY;
+    float prevMouseX;
+    float prevMouseY;
+    bool* mouseButtons;
+    bool* prevMouseButtons;
 
-struct LightComponent : public Component
-{
-  Vec3f color;
-  float radius;
-  float fieldOfView;
-  LightComponent();
+    bool mouseJustPressed(int key);
+    bool keyJustPressed(char key);
+    Input();
+  };
 
-  H3DNode node;
-};
+  struct Light : public Component
+  {
+    Vec3f color;
+    float radius;
+    float fieldOfView;
+    Light();
+
+    H3DNode node;
+  };
+
+}

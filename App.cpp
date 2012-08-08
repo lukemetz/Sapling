@@ -124,13 +124,13 @@ void Application::release()
 void Application::resize( int width, int height )
 {
 	std::vector<Entity*> entities;
-	entitySystem->getEntities<CameraComponent>(entities);
+	entitySystem->getEntities<Component::Camera>(entities);
   if(entities.size() != 1) {
-    printf("You need one CameraComponent, you currently have %d\n",
+    printf("You need one Camera, you currently have %d\n",
         static_cast<int>(entities.size()));
     throw "Need a camera";
   }
-	CameraComponent* cc = entities[0]->getAs<CameraComponent>();
+  Component::Camera* cc = entities[0]->getAs<Component::Camera>();
 
 	// Resize viewport
 	h3dSetNodeParamI( cc->node, H3DCamera::ViewportXI, 0 );

@@ -1,6 +1,8 @@
 #include "components.h"
 
-CameraComponent::CameraComponent()
+using namespace Component;
+
+Camera::Camera()
 {
 	pipeline = h3dAddResource( H3DResTypes::Pipeline, "pipelines/hdr.pipeline.xml", 0 );
 	std::string s = Application::appPath+"Content";
@@ -8,21 +10,21 @@ CameraComponent::CameraComponent()
 	node = h3dAddCameraNode( H3DRootNode, "Camera", pipeline );
 }
 
-TransformComponent::TransformComponent()
+Transform::Transform()
 {
 	pos = Vec3f(0,0,0);
 	scale = Vec3f(1,1,1);
 	rot = Vec3f(0,0,0);
 }
 
-MeshComponent::MeshComponent()
+Mesh::Mesh()
 {
   oldPath = "";
   res = 0;
   node = 0;
 }
 
-InputComponent::InputComponent()
+Input::Input()
 {
 	keys = 0;
 	prevKeys = 0;
@@ -30,17 +32,17 @@ InputComponent::InputComponent()
 	mouseY = 0;
 }
 
-bool InputComponent::keyJustPressed(char key)
+bool Input::keyJustPressed(char key)
 {
   return keys[static_cast<int>(key)] && !prevKeys[static_cast<int>(key)];
 }
 
-bool InputComponent::mouseJustPressed(int button)
+bool Input::mouseJustPressed(int button)
 {
   return mouseButtons[button] && !prevMouseButtons[button];
 }
 
-LightComponent::LightComponent()
+Light::Light()
 {
   node = h3dAddLightNode(H3DRootNode, "", 0, "LIGHTING", "SHADOWMAP");
   color = Vec3f(1.f,1.f,1.f);

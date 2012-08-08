@@ -12,8 +12,11 @@ class EntitySystem;
 
 typedef const char * TypeNameKey;
 
-struct Component
+namespace Component
 {
+  struct Component
+  {
+  };
 };
 
 struct Entity
@@ -22,7 +25,7 @@ struct Entity
    Entity();
    template<typename Type> Type *getAs();
 
-   std::map<TypeNameKey, Component*> mComponents;
+   std::map<TypeNameKey, Component::Component*> mComponents;
 };
 
 class System
@@ -77,7 +80,7 @@ public:
    template<typename T> void addComponent(Entity *e, T* comp)
    {
       mComponentStore.insert(std::pair<TypeNameKey, Entity*>(typeid(T).name(), e));
-      e->mComponents.insert(std::pair<TypeNameKey, Component*>(typeid(T).name(), comp));
+      e->mComponents.insert(std::pair<TypeNameKey, Component::Component*>(typeid(T).name(), comp));
    }
 
    template<typename T> void removeComponent(Entity *e)

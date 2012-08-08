@@ -5,6 +5,8 @@
 #include "../EntitySystem.h"
 #include "../Components/components.h"
 
+using namespace Component;
+
 class RenderSystem : public System
 {
 public:
@@ -12,7 +14,7 @@ public:
 	RenderSystem();
 	void run(float dt);
 private:
-  CameraComponent* runCamera(float dt);
+  Camera* runCamera(float dt);
   void runMeshes(float dt);
   void runLights(float dt);
 };

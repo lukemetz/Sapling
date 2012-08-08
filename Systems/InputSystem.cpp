@@ -1,6 +1,8 @@
 #include "InputSystem.h"
 #include <GL/glfw.h>
 
+using namespace Component;
+
 InputSystem::InputSystem()
 {
   ensys = EntitySystem::sharedInstance();
@@ -24,10 +26,10 @@ void InputSystem::run(float dt)
   glfwGetMousePos(&mouseX, &mouseY);
 
   std::vector<Entity*> entities;
-	ensys->getEntities<InputComponent>(entities);
-  InputComponent *ic;
+	ensys->getEntities<Input>(entities);
+  Input *ic;
 	for(Entity * entity : entities) {
-		ic = entity->getAs<InputComponent>();
+		ic = entity->getAs<Input>();
     ic->keys = keys;
 		ic->prevKeys = prevKeys;
     ic->mouseButtons = mouseButtons;
