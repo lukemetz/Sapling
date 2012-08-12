@@ -1,6 +1,5 @@
 solution "Sapling"
    configurations { "Debug", "Release" }
-   postbuildcommands {"LD_LIBRARY_PATH=lib/"} 
    project "Sapling"
       kind "SharedLib"
       language "C++"
