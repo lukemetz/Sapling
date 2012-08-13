@@ -4,7 +4,7 @@ using namespace Component;
 
 Camera::Camera()
 {
-	pipeline = h3dAddResource( H3DResTypes::Pipeline, "pipelines/hdr.pipeline.xml", 0 );
+	pipeline = h3dAddResource( H3DResTypes::Pipeline, "pipelines/deferred.pipeline.xml", 0 );
 	std::string s = Application::appPath+"Content";
 	h3dutLoadResourcesFromDisk(s.c_str());
 	node = h3dAddCameraNode( H3DRootNode, "Camera", pipeline );
@@ -44,7 +44,10 @@ bool Input::mouseJustPressed(int button)
 
 Light::Light()
 {
-  node = h3dAddLightNode(H3DRootNode, "", 0, "LIGHTING", "SHADOWMAP");
+  H3DRes lightMatRes = h3dAddResource (H3DResTypes::Material, "materials/light.material.xml", 0);
+	std::string s = Application::appPath+"Content";
+	h3dutLoadResourcesFromDisk(s.c_str());
+  node = h3dAddLightNode(H3DRootNode, "light", lightMatRes, "LIGHTING", "SHADOWMAP");
   color = Vec3f(1.f,1.f,1.f);
   radius = 100;
   fieldOfView = 360;
