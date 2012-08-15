@@ -12,9 +12,12 @@ namespace Component
   struct Camera : public Component
   {
     Camera();
-
+    bool debug;
     H3DNode node;
     H3DRes pipeline;
+    //Stats
+    H3DRes fontMatRes;
+    H3DRes panelMatRes;
   };
 
   struct Transform : public Component

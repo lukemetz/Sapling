@@ -2,7 +2,7 @@
 #include "Systems.h"
 #include "Wrappers/WrapManager.h"
 #include "App.h"
-
+#include "Components/components.h"
 static double t0;
 static Application *app;
 void engineInit() {
@@ -21,6 +21,12 @@ void engineInit() {
     wrapManager->loadEntity(entitySystem, value);
   }
 
+  //entitySystem->getEntities<Component::Camera>()[0]->getAs<Component::Camera>()->debug = true;
+  auto entities = entitySystem->getEntities<Component::Camera>();
+  if (entities.size() == 0) {
+    printf("ERROR: Please run this in the same directory that the binary is in. \n");
+  }
+  entities[0]->getAs<Component::Camera>()->debug = true;
   entitySystem->addSystem<RenderSystem>();
   entitySystem->addSystem<InputSystem>();
   entitySystem->addSystem<InputMoverSystem>();

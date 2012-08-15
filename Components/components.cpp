@@ -4,10 +4,18 @@ using namespace Component;
 
 Camera::Camera()
 {
-	pipeline = h3dAddResource( H3DResTypes::Pipeline, "pipelines/deferred.pipeline.xml", 0 );
+  debug = true;
+  printf("start cam \n");
+  pipeline = h3dAddResource( H3DResTypes::Pipeline, "pipelines/deferred.pipeline.xml", 0 );
 	std::string s = Application::appPath+"Content";
-	h3dutLoadResourcesFromDisk(s.c_str());
-	node = h3dAddCameraNode( H3DRootNode, "Camera", pipeline );
+  //Stats
+  printf("%d node came \n", node);
+	fontMatRes = h3dAddResource( H3DResTypes::Material, "overlays/font.material.xml", 0 );
+	panelMatRes = h3dAddResource( H3DResTypes::Material, "overlays/panel.material.xml", 0 );
+
+  h3dutLoadResourcesFromDisk(s.c_str());
+
+  node = h3dAddCameraNode( H3DRootNode, "Camera", pipeline );
 }
 
 Transform::Transform()

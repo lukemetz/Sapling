@@ -58,7 +58,6 @@ void RenderSystem::runMeshes(float dt)
   }
 }
 
-
 void RenderSystem::runLights(float dt)
 {
   Light *lc;
@@ -85,9 +84,13 @@ void RenderSystem::run(float dt)
   Camera *cc = runCamera(dt);
   runMeshes(dt);
   runLights(dt);
+  if (cc->debug) {
+    h3dutShowFrameStats( cc->fontMatRes, cc->panelMatRes, 2);
+  }
 
-	h3dRender( cc->node );
+  h3dRender( cc->node );
 	h3dFinalizeFrame();
+
 	h3dClearOverlays();
 	h3dutDumpMessages();
 }
