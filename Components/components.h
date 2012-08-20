@@ -34,6 +34,7 @@ namespace Component
     H3DNode node;
     H3DRes res;
     std::string oldPath;
+    std::string description();
     void loadResources();
     Mesh();
     ~Mesh();

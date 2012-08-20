@@ -4,9 +4,12 @@
 #pragma once
 
 #include <stdio.h>
-#include "map"
-#include "vector"
+#include <string>
+#include <map>
+#include <vector>
 #include <typeinfo>
+#include <iostream>
+#include <sstream>
 
 class EntitySystem;
 
@@ -16,6 +19,7 @@ namespace Component
 {
   struct Component
   {
+    virtual std::string description();
     virtual ~Component() {};
   };
 };

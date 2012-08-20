@@ -12,6 +12,15 @@ Entity::~Entity()
   entitySystem->removeAllComponents(this);
 }
 
+std::string Component::Component::description()
+{
+  std::ostringstream stringStream;
+  stringStream << "<Component ";
+  stringStream << this;
+  stringStream << ">";
+  return stringStream.str();
+}
+
 EntitySystem::EntitySystem()
 {
 	Entity::entitySystem = this;
@@ -43,6 +52,7 @@ void EntitySystem::removeAllComponents(Entity *e)
 
   for(it = e->mComponents.begin(); it != e->mComponents.end(); ++it) {
     mComponentStore.erase(it->first);
+
     delete it->second;
   }
 }

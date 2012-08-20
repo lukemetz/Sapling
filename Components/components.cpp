@@ -34,7 +34,6 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
-  printf("Deleteing mesh \n");
   if (node != 0)
   {
     h3dRemoveNode(node);
