@@ -61,7 +61,6 @@ void EntitySystem::removeAllComponents(Entity *e)
       }
     }
     e->mComponents.erase(it->first);
-    printf("Clean 2 \n");
     delete it->second;
   }
 }
