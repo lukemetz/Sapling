@@ -7,6 +7,11 @@ Entity::Entity()
 {
 }
 
+Entity::~Entity()
+{
+  entitySystem->removeAllComponents(this);
+}
+
 EntitySystem::EntitySystem()
 {
 	Entity::entitySystem = this;

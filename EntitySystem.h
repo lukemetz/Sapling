@@ -23,6 +23,7 @@ struct Entity
 {
    static EntitySystem *entitySystem;
    Entity();
+   ~Entity();
    template<typename Type> Type *getAs();
 
    std::map<TypeNameKey, Component::Component*> mComponents;
