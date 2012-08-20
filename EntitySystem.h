@@ -91,7 +91,14 @@ public:
 
    template<typename T> void removeComponent(Entity *e)
    {
-      mComponentStore.erase(typeid(T).name());
+      //TODO fix me so I don't scale with number of components. Use better data structure
+      std::multimap< TypeNameKey, Entity* >::iterator iter;
+      auto iterPair = mComponentStore.equal_range(typeid(T).name());
+      for(iter = iterPair.first; iter != iterPair.second; ++iter) {
+        if (e == iter->second) {
+          mComponentStore.erase(iter);
+        }
+      }
       e->mComponents.erase(typeid(T).name());
    }
 

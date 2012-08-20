@@ -51,8 +51,17 @@ void EntitySystem::removeAllComponents(Entity *e)
   std::map<TypeNameKey, Component::Component*>::iterator it;
 
   for(it = e->mComponents.begin(); it != e->mComponents.end(); ++it) {
-    mComponentStore.erase(it->first);
 
+    std::multimap< TypeNameKey, Entity* >::iterator iter;
+    //TODO fix me so I don't scale with number of components. Use better data structure
+    auto iterPair = mComponentStore.equal_range(it->first);
+    for(iter = iterPair.first; iter != iterPair.second; ++iter) {
+      if (iter->second == e) {
+        mComponentStore.erase(iter);
+      }
+    }
+    e->mComponents.erase(it->first);
+    printf("Clean 2 \n");
     delete it->second;
   }
 }
