@@ -32,6 +32,26 @@ Mesh::Mesh()
   node = 0;
 }
 
+Mesh::~Mesh()
+{
+  printf("Deleteing mesh \n");
+  if (node != 0)
+  {
+    h3dRemoveNode(node);
+  }
+}
+
+std::string Mesh::description()
+{
+  std::ostringstream stringStream;
+  stringStream << "<Component path=";
+  stringStream << path;
+  stringStream << " node=";
+  stringStream << node;
+  stringStream << ">";
+  return stringStream.str();
+}
+
 Input::Input()
 {
 	keys = 0;

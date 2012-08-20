@@ -31,12 +31,12 @@ namespace Component
   struct Mesh : public Component
   {
     std::string path;
-    Mesh();
-
     H3DNode node;
     H3DRes res;
     std::string oldPath;
     void loadResources();
+    Mesh();
+    ~Mesh();
   };
 
   struct Input : public Component

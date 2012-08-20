@@ -43,6 +43,7 @@ void EntitySystem::removeAllComponents(Entity *e)
 
   for(it = e->mComponents.begin(); it != e->mComponents.end(); ++it) {
     mComponentStore.erase(it->first);
+    delete it->second;
   }
 }
 

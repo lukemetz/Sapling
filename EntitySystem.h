@@ -16,6 +16,7 @@ namespace Component
 {
   struct Component
   {
+    virtual ~Component() {};
   };
 };
 
@@ -23,7 +24,7 @@ struct Entity
 {
    static EntitySystem *entitySystem;
    Entity();
-   ~Entity();
+   virtual ~Entity();
    template<typename Type> Type *getAs();
 
    std::map<TypeNameKey, Component::Component*> mComponents;
