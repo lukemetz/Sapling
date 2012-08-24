@@ -25,6 +25,33 @@ Transform::Transform()
 	rot = Vec3f(0,0,0);
 }
 
+std::string Transform::description()
+{
+  std::ostringstream stringStream;
+  stringStream << "<Transform pos:(";
+  stringStream << pos.x;
+  stringStream << ", ";
+  stringStream << pos.y;
+  stringStream << ", ";
+  stringStream << pos.z;
+  stringStream << ") scale:(";
+  stringStream << scale.x;
+  stringStream << ", ";
+  stringStream << scale.y;
+  stringStream << ", ";
+  stringStream << scale.z;
+
+  stringStream << ") rot:(";
+  stringStream << rot.x;
+  stringStream << ", ";
+  stringStream << rot.y;
+  stringStream << ", ";
+  stringStream << rot.z;
+
+  stringStream << ") >";
+  return stringStream.str();
+}
+
 Mesh::Mesh()
 {
   oldPath = "";

@@ -26,6 +26,7 @@ namespace Component
     Vec3f scale;
     Vec3f rot;
     Transform();
+    std::string description();
   };
 
   struct Mesh : public Component
