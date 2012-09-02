@@ -66,6 +66,7 @@ namespace Component
     Light();
 
     H3DNode node;
+    std::string description();
   };
 
 }

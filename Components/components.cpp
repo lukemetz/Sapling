@@ -106,3 +106,18 @@ Light::Light()
   radius = 100;
   fieldOfView = 360;
 }
+
+std::string Light::description()
+{
+  std::ostringstream stringStream;
+  stringStream << "<LightComponent color=";
+  stringStream << color.x;
+  stringStream << ", ";
+  stringStream << color.y;
+  stringStream << ", ";
+  stringStream << color.z;
+  stringStream << " radius";
+  stringStream << radius;
+  stringStream << ">";
+  return stringStream.str();
+}
